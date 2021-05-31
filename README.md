@@ -1,4 +1,4 @@
-# KH HOSPITAL
+# KH Hospital
 회원가입(핸드폰,이메일 인증) 완료
 
 일반 로그인 구현
