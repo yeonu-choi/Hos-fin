@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC 
+"-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.kh.hospital.member.model.vo.Member" alias="Member"/>
+	<!--<typeAlias type="com.kh.hospital.counsel.model.vo.Search" alias="cSearch"/>
+		<typeAlias type="com.kh.hospital.counsel.model.vo.Counsel" alias="Counsel"/>
+		<typeAlias type="com.kh.hospital.counsel.model.vo.Reply" alias="Creply"/> -->
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/counsel-mapper.xml"/>
+	</mappers>
+</configuration>

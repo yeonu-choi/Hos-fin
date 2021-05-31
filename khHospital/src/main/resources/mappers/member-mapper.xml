@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<resultMap id="memberResult" type="Member">
+		<id property="userId" column="USERID"/>
+		<result property="userPwd" column="USERPWD"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="gender" column="GENDER"/>
+		<result property="phone" column="PHONE"/>
+		<result property="enroll_date" column="ENROLL_DATE"/>
+		<result property="sns_status" column="SNS_STATUS"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="grade" column="GRADE"/>
+		<result property="dayOff" column="DAYOFF"/>
+		<result property="did" column="DID"/>
+		<result property="email" column="EMAIL"/>
+	</resultMap>
+
+	<select id="emailCheck" parameterType="String" resultMap="memberResult">
+		SELECT
+				USERID,
+				USERPWD,
+				USERNAME,
+				GENDER,
+				PHONE,
+				ENROLL_DATE,
+				SNS_STATUS,
+				BIRTH,
+				GRADE,
+				DAYOFF,
+				DID,
+				EMAIL
+		FROM
+			    MEMBER
+		WHERE
+				EMAIL = #{email}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultMap="memberResult">
+		SELECT
+				USERID,
+				USERPWD,
+				USERNAME,
+				GENDER,
+				PHONE,
+				ENROLL_DATE,
+				SNS_STATUS,
+				BIRTH,
+				GRADE,
+				DAYOFF,
+				DID,
+				EMAIL
+		FROM
+			    MEMBER
+		WHERE
+				USERID = #{userId}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT
+		INTO MEMBER
+			(
+				USERID,
+				USERPWD,
+				USERNAME,
+				GENDER,
+				PHONE,
+				ENROLL_DATE,
+				BIRTH,
+				GRADE,
+				EMAIL
+			)
+		VALUES
+			(
+				#{userId},
+				#{userPwd},
+				#{userName},
+				#{gender},
+				#{phone},
+				SYSDATE,
+				#{birth},
+				DEFAULT,
+				#{email}
+			)
+	</insert>
+	
+	<select id="loginMember" parameterType="Member" resultMap="memberResult">
+		SELECT
+				USERID,
+				USERPWD,
+				USERNAME,
+				GENDER,
+				PHONE,
+				ENROLL_DATE,
+				SNS_STATUS,
+				BIRTH,
+				GRADE,
+				DAYOFF,
+				DID,
+				EMAIL
+		FROM
+			    MEMBER
+		WHERE
+				USERID = #{userId}
+	</select>
+	
+	<insert id="insertMemberByGoogle" parameterType="Member">
+		 INSERT
+		INTO MEMBER
+			(
+				USERID,
+				USERPWD,
+				USERNAME,
+				ENROLL_DATE,
+				GRADE,
+				EMAIL
+			)
+		VALUES
+			(
+				#{userId},
+				#{userPwd},
+				#{userName},
+				SYSDATE,
+				DEFAULT,
+				#{email}
+			)
+	</insert>
+	
+	<select id="selectMemberByEmail" parameterType="Member" resultMap="memberResult">
+			SELECT
+				USERID,
+				USERPWD,
+				USERNAME,
+				GENDER,
+				PHONE,
+				ENROLL_DATE,
+				SNS_STATUS,
+				BIRTH,
+				GRADE,
+				DAYOFF,
+				DID,
+				EMAIL
+		FROM
+			    MEMBER
+		WHERE
+				EMAIL = #{email}
+		AND		USERNAME = #{userName}
+	</select>
+	
+	<select id="phoneCheck" parameterType="String" resultMap="memberResult">
+		SELECT
+				USERID,
+				USERPWD,
+				USERNAME,
+				GENDER,
+				PHONE,
+				ENROLL_DATE,
+				SNS_STATUS,
+				BIRTH,
+				GRADE,
+				DAYOFF,
+				DID,
+				EMAIL
+		FROM
+			    MEMBER
+		WHERE
+				PHONE = #{phone}
+	</select>
+</mapper>
