@@ -37,7 +37,6 @@ public class MemberServiceImpl implements MemberService{
 		Member returnVO = null;
 		try {
 			returnVO = mDao.selectMemberByEmail(m);
-			//System.out.println("아이디: "+m.getUserId()+" 비번: "+m.getUserPwd()+" 이름: "+m.getUserName());
 		} catch (Exception e) {
 			e.printStackTrace();
 			returnVO = null;
