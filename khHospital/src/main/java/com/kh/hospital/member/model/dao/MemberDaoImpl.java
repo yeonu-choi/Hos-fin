@@ -34,7 +34,7 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public void insertMemberByGoogle(Member m) {
-		sqlSession.insert("memberMapper.insertMemberByGoogle", m);
+		sqlSession.insert("memberMapper.insertMemberBySocial", m);
 	}
 
 	@Override
@@ -45,6 +45,26 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public Member phoneCheck(String p) {
 		return sqlSession.selectOne("memberMapper.phoneCheck", p);
+	}
+
+	@Override
+	public void insertMemberByKakao(Member m) {
+		sqlSession.insert("memberMapper.insertMemberBySocial", m);
+	}
+
+	@Override
+	public void insertMemberByNaver(Member m) {
+		sqlSession.insert("memberMapper.insertMemberBySocial", m);
+	}
+
+	@Override
+	public int updateTempPw(Member m) {
+		return sqlSession.update("memberMapper.updateTempPw", m);
+	}
+
+	@Override
+	public int resetPwdByPhone(Member m) {
+		return sqlSession.update("memberMapper.updatePwdByPhone", m);
 	}
 
 }

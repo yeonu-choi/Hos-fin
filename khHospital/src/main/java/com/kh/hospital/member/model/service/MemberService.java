@@ -18,4 +18,20 @@ public interface MemberService {
 
 	void joinMemberByGoogle(Member m);
 
+	Member loginMemberByKakao(Member m);
+
+	void joinMemberByKakao(Member m);
+
+	Member loginMemberByNaver(Member m);
+
+	void joinMemberByNaver(Member m);
+
+	Member selectMemberForIdChk(Member m);
+
+	int updateTempPw(Member m);
+
+	Member selectMemberForTempPw(Member m);
+
+	int resetPwdByPhone(Member m);
+
 }

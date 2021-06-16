@@ -53,4 +53,58 @@ public class MemberServiceImpl implements MemberService{
 	public Member phoneCheck(String p) {
 		return mDao.phoneCheck(p);
 	}
+
+	@Override
+	public Member loginMemberByKakao(Member m) {
+		Member rm = null;
+		try {
+			rm = mDao.selectMemberByEmail(m);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rm = null;
+		}
+		return rm;
+	}
+
+	@Override
+	public void joinMemberByKakao(Member m) {
+		mDao.insertMemberByKakao(m);
+	}
+
+	@Override
+	public Member loginMemberByNaver(Member m) {
+		Member rm = null;
+		try {
+			rm = mDao.selectMemberByEmail(m);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rm = null;
+		}
+		return rm;
+	}
+
+	@Override
+	public void joinMemberByNaver(Member m) {
+		mDao.insertMemberByNaver(m);
+	}
+
+	@Override
+	public Member selectMemberForIdChk(Member m) {
+		return mDao.selectMemberByEmail(m);
+	}
+
+	@Override
+	public int updateTempPw(Member m) {
+		return mDao.updateTempPw(m);
+	}
+
+	@Override
+	public Member selectMemberForTempPw(Member m) {
+		return mDao.selectMemberByEmail(m);
+	}
+
+	@Override
+	public int resetPwdByPhone(Member m) { 
+		return mDao.resetPwdByPhone(m);
+	}
 }

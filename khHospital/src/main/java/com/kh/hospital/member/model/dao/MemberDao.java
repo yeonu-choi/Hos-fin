@@ -18,4 +18,12 @@ public interface MemberDao {
 
 	Member phoneCheck(String p);
 
+	void insertMemberByKakao(Member m);
+
+	void insertMemberByNaver(Member m);
+
+	int updateTempPw(Member m);
+
+	int resetPwdByPhone(Member m);
+
 }
