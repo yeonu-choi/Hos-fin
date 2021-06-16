@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mypageMapper">
+	<resultMap id="counselResultSet" type="Counsel">
+		<id property="cid" column="CID"/>
+		<result property="did" column="DID"/>
+		<result property="ctitle" column="CTITLE"/>
+		<result property="ccount" column="C_COUNT"/>
+		<result property="ccreateDate" column="C_CREATE_DATE"/>
+		<result property="cmodifyDate" column="C_MODIFY_DATE"/>
+		<result property="cstatus" column="C_STATUS"/>
+		<result property="userId" column="USERID"/>	
+	</resultMap>
+
+	<select id="selectListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		COUNSEL
+		 WHERE
+		 		USERID = #{userId}
+	</select>
+	
+	<select id="selectList" resultMap="counselResultSet">
+		SELECT 
+				CID
+			  , DID
+			  , CTITLE
+			  , C_COUNT
+			  , C_CREATE_DATE
+			  , C_MODIFY_DATE
+			  , C_STATUS
+			  , USERID
+		 FROM
+		 		COUNSEL
+		WHERE
+				USERID = #{userId}
+	 ORDER BY
+	 			CID DESC
+	</select>
+</mapper>

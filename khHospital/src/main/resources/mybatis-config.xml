@@ -9,13 +9,49 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.hospital.member.model.vo.Member" alias="Member"/>
-	<!--<typeAlias type="com.kh.hospital.counsel.model.vo.Search" alias="cSearch"/>
 		<typeAlias type="com.kh.hospital.counsel.model.vo.Counsel" alias="Counsel"/>
-		<typeAlias type="com.kh.hospital.counsel.model.vo.Reply" alias="Creply"/> -->
+		<typeAlias type="com.kh.hospital.counsel.model.vo.Attachment" alias="Attachment"/>
+	    <typeAlias type="com.kh.hospital.counsel.model.vo.Search" alias="Csearch"/>
+		<typeAlias type="com.kh.hospital.counsel.model.vo.Reply" alias="Creply"/>
+		<typeAlias type="com.kh.hospital.main.model.vo.News" alias="News"/>
+		
+		<typeAlias type="com.kh.hospital.appointment.model.vo.QuickAppointment" alias="Quick"/>
+        <typeAlias type="com.kh.hospital.appointment.model.vo.OnlineAppointment" alias="Online"/>
+        <typeAlias type="com.kh.hospital.appointment.model.vo.Department" alias="Department"/>
+        <typeAlias type="com.kh.hospital.appointment.model.vo.Doctor" alias="Doctor"/>
+        
+        <typeAlias type="com.kh.hospital.compliment.model.vo.Compliment" alias="Compliment"/>
+        <typeAlias type="com.kh.hospital.compliment.model.vo.Attachment" alias="cpAttachment"/>
+        <typeAlias type="com.kh.hospital.compliment.model.vo.Search" alias="cpSearch"/>
+        <typeAlias type="com.kh.hospital.compliment.model.vo.Good" alias="Good"/>
+        <typeAlias type="com.kh.hospital.compliment.model.vo.Reply" alias="cpReply"/>
+        
+        <typeAlias type="com.kh.hospital.notice.model.vo.Notice" alias="Notice"/>
+        <typeAlias type="com.kh.hospital.notice.model.vo.Search" alias="Search"/>
+        <typeAlias type="com.kh.hospital.faq.model.vo.Faq" alias="Faq"/>
+        <typeAlias type="com.kh.hospital.faq.model.vo.Search" alias="Search2"/>
+        
+        <typeAlias type="com.kh.hospital.culture.model.vo.Culture" alias="Culture"/>
+        
+        <typeAlias type="com.kh.hospital.complain.model.vo.Complain" alias="Complain"/>
+		<typeAlias type="com.kh.hospital.complain.model.vo.Search" alias="complSearch"/>
+		<typeAlias type="com.kh.hospital.complain.model.vo.CB_Reply" alias="CBReply"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/counsel-mapper.xml"/>
+		<mapper resource="mappers/main-mapper.xml"/>
+		
+		<mapper resource="mappers/appointment-mapper.xml"/>
+        <mapper resource="mappers/compliment-mapper.xml"/>
+        
+        <mapper resource="mappers/notice-mapper.xml"/>
+        <mapper resource="mappers/faq-mapper.xml"/>
+        
+        <mapper resource="mappers/culture-mapper.xml"/>
+        
+        <mapper resource="mappers/complain-mapper.xml"/>
+		<mapper resource="mappers/mypage-mapper.xml"/>
 	</mappers>
 </configuration>

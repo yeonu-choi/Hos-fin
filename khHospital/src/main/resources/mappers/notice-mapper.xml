@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+	<resultMap type="Notice" id="noticeResultSet">
+		<id property="nid" column="NID"/>
+		<result property="ntitle" column="NTITLE"/>
+		<result property="ncontent" column="NCONTENT"/>
+		<result property="ncreatedate" column="N_CREATE_DATE"/>
+		<result property="nmodifydate" column="N_MODIFY_DATE"/>
+		<result property="nstatus" column="NSTATUS"/>
+		<result property="ncount" column="NCOUNT"/>
+		<result property="nwriter" column="NWRITER"/>
+		<result property="nfile" column="NFILE"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT
+			   COUNT(*)
+		FROM
+			   NOTICE
+		WHERE
+			   NSTATUS = 'Y'
+	</select>
+	<select id="selectList" resultMap="noticeResultSet">
+		SELECT
+			   NID
+			 , NTITLE
+			 , NCONTENT
+			 , N_CREATE_DATE
+			 , N_MODIFY_DATE
+			 , NSTATUS
+			 , NCOUNT
+			 , NWRITER
+			 , NFILE
+		FROM
+			   NOTICE
+		WHERE
+			   NSTATUS = 'Y'
+		ORDER BY
+			   NID DESC
+	</select>
+	<select id="insertNotice" parameterType="Notice">
+		INSERT
+		INTO NOTICE
+		(
+			  NID
+			, NTITLE
+			, NCONTENT
+			, N_CREATE_DATE
+			, N_MODIFY_DATE
+			, NSTATUS
+			, NCOUNT
+			, NWRITER
+			, NFILE
+		)
+		VALUES
+		(
+			  SEQ_NID.NEXTVAL
+			, #{ntitle}
+			, #{ncontent}
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, DEFAULT
+			, #{nwriter}
+			, #{nfile}
+		)
+		
+	</select>
+	<select id="selectNotice" parameterType="_int" resultMap="noticeResultSet">
+		SELECT
+			   NID
+			 , NTITLE
+			 , NCONTENT
+			 , N_CREATE_DATE
+			 , N_MODIFY_DATE
+			 , NSTATUS
+			 , NCOUNT
+			 , NWRITER
+			 , NFILE
+		FROM
+			   NOTICE
+		WHERE
+			 NID = #{nid}
+	</select>
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE
+			   NOTICE
+		SET
+			  NTITLE = #{ntitle}
+		    , NCONTENT = #{ncontent}
+		    , NFILE = #{nfile}
+		    , N_MODIFY_DATE = SYSDATE	
+		WHERE
+			  NID = #{nid}  
+	</update>
+	<delete id="deleteNotice" parameterType="_int">
+		DELETE
+		FROM  
+			  NOTICE
+		WHERE
+			  NID = #{nid}
+	</delete>
+	
+	
+	<select id="searchList" parameterType="Search" resultMap="noticeResultSet">
+	<bind name="s" value="'%' +_parameter.getSearchValue() + '%'"/>
+		SELECT
+			    NID
+			 , NTITLE
+			 , NCONTENT
+			 , N_CREATE_DATE
+			 , N_MODIFY_DATE
+			 , NSTATUS
+			 , NCOUNT
+			 , NWRITER
+			 , NFILE
+		FROM
+			   NOTICE
+		<where>
+			<choose>
+				<when test="searchCondition == 'title'">
+				AND NTITLE LIKE #{s}
+				</when>
+				<when test="searchCondition == 'writer'">
+				AND NWRITER LIKE #{s}
+				</when>
+				<when test="searchCondition == 'content'">
+				AND NCONTENT LIKE #{s}
+				</when>
+				<otherwise>
+				AND (NWRITER LIKE #{s}
+					 OR NTITLE LIKE #{s}
+					 OR NCONTENT LIKE #{s})
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY NID DESC
+	</select>
+	
+</mapper>

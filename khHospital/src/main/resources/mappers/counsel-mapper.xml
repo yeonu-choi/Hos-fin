@@ -3,5 +3,336 @@
 "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="counselMapper">
+	<resultMap id="counselResult" type="Counsel">
+		<id property="cid" column="CID"/>
+		<result property="did" column="DID"/>
+		<result property="ctitle" column="CTITLE"/>
+		<result property="c_content" column="C_CONTENT"/>
+		<result property="c_count" column="C_COUNT"/>
+		<result property="c_createDate" column="C_CREATE_DATE"/>
+		<result property="c_ModifyDate" column="C_MODIFY_DATE"/>
+		<result property="cstatus" column="C_STATUS"/>
+		<result property="userId" column="USERID"/>
+	</resultMap>
 	
+	<resultMap id="AttachmentResult" type="Attachment">
+		<id property="fid" column="FID"/>
+		<result property="cid" column="CID"/>
+		<result property="cno" column="CNO"/>
+		<result property="cbid" column="CBID"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+	</resultMap>
+	
+	<resultMap id="MemberResult" type="Member">
+		<id property="userId" column="USERID"/>
+		<result property="userPwd" column="USERPWD"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="gender" column="GENDER"/>
+		<result property="phone" column="PHONE"/>
+		<result property="enroll_date" column="ENROLL_DATE"/>
+		<result property="sns_status" column="SNS_STATUS"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="grade" column="GRADE"/>
+		<result property="dayOff" column="DAYOFF"/>
+		<result property="did" column="DID"/>
+		<result property="email" column="EMAIL"/>
+	</resultMap>
+	
+	<resultMap id="ReplyResult" type="Creply">
+		<id property="rid" column="RID"/>
+		<result property="rcontent" column="RCONTENT"/>
+		<result property="rcreateDate" column="R_CREATE_DATE"/>
+		<result property="rmodifyDate" column="R_MODIFY_DATE"/>
+		<result property="cid" column="CID"/>
+		<result property="userId" column="USERID"/>
+		<result property="userName" column="USERNAME"/>
+		<!-- <collection property="member" resultMap="MemberResult"/> -->
+	</resultMap>
+	
+	<select id="selectListCount" parameterType="_int" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			COUNSEL
+		WHERE
+			DID = #{did}
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultMap="counselResult">
+		SELECT
+			CID,
+			DID,
+			CTITLE,
+			C_CONTENT,
+			C_COUNT,
+			C_CREATE_DATE,
+			C_MODIFY_DATE,
+			C_STATUS,
+			USERID
+		FROM
+			COUNSEL
+		WHERE
+			DID = #{did}
+		ORDER BY
+			CID DESC
+	</select>
+	
+	<insert id="insertCounsel" parameterType="Counsel">
+		INSERT INTO
+			COUNSEL
+				(
+					CID,
+					DID,
+					CTITLE,
+					C_CONTENT,
+					C_COUNT,
+					C_CREATE_DATE,
+					C_MODIFY_DATE,
+					C_STATUS,
+					USERID
+				)
+			VALUES
+				(
+					SEQ_CID.NEXTVAL,
+					#{did},
+					#{ctitle},
+					#{c_content},
+					DEFAULT,
+					SYSDATE,
+					SYSDATE,
+					DEFAULT,
+					#{userId}
+				)
+	</insert>
+	
+	<insert id="insertFile" parameterType="Attachment">
+		INSERT INTO
+			ATTACHMENT
+				(
+					FID,
+					CID,
+					ORIGIN_NAME,
+					CHANGE_NAME
+				)
+			VALUES
+				(
+					SEQ_FID1.NEXTVAL,
+					SEQ_CID.CURRVAL,
+					#{originName},
+					#{changeName}
+				)			
+	</insert>
+	
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE
+			COUNSEL
+		SET
+			C_COUNT = C_COUNT + 1
+		WHERE
+			CID = #{cid}
+	</update>
+	
+	<select id="selectCounsel" parameterType="_int" resultMap="counselResult">
+		SELECT
+			CID,
+			DID,
+			CTITLE,
+			C_CONTENT,
+			C_COUNT,
+			C_CREATE_DATE,
+			C_MODIFY_DATE,
+			C_STATUS,
+			USERID
+		FROM
+			COUNSEL
+		WHERE
+			CID = #{cid}
+	</select>
+	
+	<select id="selectFile" parameterType="_int" resultMap="AttachmentResult">
+		SELECT
+			FID,
+			CID,
+			ORIGIN_NAME,
+			CHANGE_NAME
+		FROM
+			ATTACHMENT
+		WHERE
+			CID = #{cid}
+	</select>
+	
+	<select id="selectFileByFid" parameterType="String" resultMap="AttachmentResult">
+		SELECT
+			FID,
+			CID,
+			ORIGIN_NAME,
+			CHANGE_NAME
+		FROM
+			ATTACHMENT
+		WHERE
+			FID = #{fid}
+	</select>
+	
+	<update id="updateFile" parameterType="Attachment">
+		UPDATE
+			ATTACHMENT
+		SET
+			ORIGIN_NAME = #{originName},
+			CHANGE_NAME = #{changeName}
+		WHERE
+			FID = #{fid}
+	</update>
+	
+	<update id="updateCounsel" parameterType="Counsel">
+		UPDATE
+			COUNSEL
+		SET
+			CTITLE = #{ctitle},
+			C_CONTENT = #{c_content},
+			C_MODIFY_DATE = #{c_ModifyDate}
+		WHERE
+			CID = #{cid}
+		AND DID = #{did}
+	</update>
+	
+	<delete id="deleteCounsel" parameterType="_int">
+		DELETE FROM
+			COUNSEL
+		WHERE
+			CID = #{cid} 
+	</delete>
+	
+	<insert id="insertFileFromModify" parameterType="Attachment">
+		INSERT INTO
+			ATTACHMENT
+				(
+					FID,
+					CID,
+					ORIGIN_NAME,
+					CHANGE_NAME
+				)
+			VALUES
+				(
+					SEQ_FID1.NEXTVAL,
+					#{cid},
+					#{originName},
+					#{changeName}
+				)		
+	</insert>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="ReplyResult">
+		SELECT
+				RID,
+				RCONTENT,
+				R_CREATE_DATE,
+				R_MODIFY_DATE,
+				CID,
+				USERID,
+				USERNAME
+		FROM
+				C_REPLY
+		JOIN	MEMBER USING(USERID)
+		WHERE
+				CID = #{cid}
+	</select>
+	
+	<insert id="insertReply" parameterType="Creply">
+		INSERT INTO
+			C_REPLY
+				(
+					RID,
+					RCONTENT,
+					R_CREATE_DATE,
+					R_MODIFY_DATE,
+					CID,
+					USERID
+				)
+			VALUES
+				(
+					SEQ_RID.NEXTVAL,
+					#{rcontent},
+					SYSDATE,
+					SYSDATE,
+					#{cid},
+					#{userId}
+				)		
+	</insert>
+	
+	<delete id="deleteReply" parameterType="_int">
+		DELETE FROM
+			C_REPLY
+		WHERE 
+			RID = #{rid}
+	</delete>
+	
+	<update id="modifyCounselStatus" parameterType="_int">
+		UPDATE
+			COUNSEL
+		SET
+			C_STATUS = '답변완료'
+		WHERE
+			CID = #{cid}
+	</update>
+	
+	<update id="modifyReply" parameterType="Creply">
+		UPDATE
+			C_REPLY
+		SET
+			RCONTENT = #{rcontent}
+		WHERE
+			RID = #{rid}
+	</update>
+	
+	<select id="selectSearchListCount" parameterType="Csearch" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			COUNSEL
+		WHERE
+			DID = #{did}
+		<choose>
+			<when test="condition == 'all'">
+				AND (CTITLE LIKE '%'||#{search}||'%'
+				OR USERID LIKE '%'||#{search}||'%')
+			</when>
+			<when test="condition == 'writer'">
+				AND CTITLE LIKE '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				AND USERID LIKE '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectSearchList" parameterType="Csearch" resultMap="counselResult">
+		SELECT
+			CID,
+			DID,
+			CTITLE,
+			C_CONTENT,
+			C_COUNT,
+			C_CREATE_DATE,
+			C_MODIFY_DATE,
+			C_STATUS,
+			USERID
+		FROM
+			COUNSEL
+		WHERE
+			DID = #{did}
+		<choose>
+			<when test="condition == 'all'">
+				AND (CTITLE LIKE '%'||#{search}||'%'
+				OR USERID LIKE '%'||#{search}||'%')
+			</when>
+			<when test="condition == 'title'">
+				AND CTITLE LIKE '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				AND USERID LIKE '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+		ORDER BY
+			CID DESC
+	</select>
 </mapper>

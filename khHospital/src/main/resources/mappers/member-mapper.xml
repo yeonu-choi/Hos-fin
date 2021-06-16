@@ -10,7 +10,6 @@
 		<result property="gender" column="GENDER"/>
 		<result property="phone" column="PHONE"/>
 		<result property="enroll_date" column="ENROLL_DATE"/>
-		<result property="sns_status" column="SNS_STATUS"/>
 		<result property="birth" column="BIRTH"/>
 		<result property="grade" column="GRADE"/>
 		<result property="dayOff" column="DAYOFF"/>
@@ -26,7 +25,6 @@
 				GENDER,
 				PHONE,
 				ENROLL_DATE,
-				SNS_STATUS,
 				BIRTH,
 				GRADE,
 				DAYOFF,
@@ -46,7 +44,6 @@
 				GENDER,
 				PHONE,
 				ENROLL_DATE,
-				SNS_STATUS,
 				BIRTH,
 				GRADE,
 				DAYOFF,
@@ -94,7 +91,6 @@
 				GENDER,
 				PHONE,
 				ENROLL_DATE,
-				SNS_STATUS,
 				BIRTH,
 				GRADE,
 				DAYOFF,
@@ -106,7 +102,7 @@
 				USERID = #{userId}
 	</select>
 	
-	<insert id="insertMemberByGoogle" parameterType="Member">
+	<insert id="insertMemberBySocial" parameterType="Member">
 		 INSERT
 		INTO MEMBER
 			(
@@ -136,7 +132,6 @@
 				GENDER,
 				PHONE,
 				ENROLL_DATE,
-				SNS_STATUS,
 				BIRTH,
 				GRADE,
 				DAYOFF,
@@ -157,7 +152,6 @@
 				GENDER,
 				PHONE,
 				ENROLL_DATE,
-				SNS_STATUS,
 				BIRTH,
 				GRADE,
 				DAYOFF,
@@ -168,4 +162,57 @@
 		WHERE
 				PHONE = #{phone}
 	</select>
+	
+	<update id="updateTempPw" parameterType="Member">
+		UPDATE 
+			MEMBER
+		SET 
+			USERPWD =  #{userPwd}
+		WHERE 
+			USERID = #{userId}
+		AND EMAIL = #{email}
+		AND USERNAME = #{userName}
+	</update>
+	
+	<update id="updatePwdByPhone" parameterType="Member">
+		UPDATE 
+			MEMBER
+		SET 
+			USERPWD =  #{userPwd}
+		WHERE 
+			USERID = #{userId}
+		AND PHONE = #{phone}
+	</update>
+	
+	<select id="updateMember" parameterType="Member">
+	UPDATE
+				MEMBER
+	SET
+				USERNAME = #{userName}
+			  ,	GENDER = #{gender}
+			  , BIRTH = #{birth}
+			  , PHONE = #{phone}
+			  , EMAIL = #{email}
+	WHERE
+				USERID = #{userId}
+	</select>
+	
+	<update id="deleteMember" parameterType="Member">
+	UPDATE
+			MEMBER
+	   SET
+	   		STATUS = 'N'
+	  WHERE
+	  		USERID = #{userId}
+	   		
+	</update>
+	
+	<update id="updatePwd" parameterType="Member">
+	UPDATE
+			MEMBER
+	   SET
+	   		USERPWD = #{userPwd}
+	 WHERE
+	 		USERID = #{userId}
+	</update>
 </mapper>

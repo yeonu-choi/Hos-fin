@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="complainMapper">
+	<resultMap id="complainResultSet" type="Complain">
+		<id property="cbid" column="CBID"/>
+		<result property="cbtitle" column="CBTITLE"/>
+		<result property="cbcontent" column="CBCONTENT"/>
+		<result property="cbcreateDate" column="CB_CREATE_DATE"/>
+		<result property="cbmodifyDate" column="CB_MODIFY_DATE"/>
+		<result property="cbcount" column="CB_COUNT"/>
+		<result property="cbstatus" column="CB_STATUS"/>
+		<result property="userid" column="USERID"/>
+		<result property="cbwriter" column="cbwriter"/>
+		<result property="originalfileName" column="ORIGINAL_FILENAME"/>
+		<result property="renamefileName" column="RENAME_FILENAME"/>
+	</resultMap>
+	
+	<resultMap id="cbreplyResultSet" type="CBReply">
+		<id property="rno" column="RNO"/>
+		<result property="rcontent" column="RCONTENT"/>
+		<result property="rwriter" column="RWRITER"/>
+		<result property="rcreateDate" column="R_CREATE_DATE"/>
+		<result property="rmodifyDate" column="R_MODIFY_DATE"/>
+		<result property="rstatus" column="R_STATUS"/>
+		<result property="cbid" column="CBID"/>
+		<!-- <result property="rno2" column="RNO2"/> -->
+	</resultMap>
+	
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		COMPLAIN
+		 WHERE
+		 		CB_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="complainResultSet">
+		SELECT
+				CBID
+			  , CBTITLE
+			  , CBCONTENT
+			  , CB_CREATE_DATE
+			  , CB_MODIFY_DATE
+			  , CB_COUNT 
+			  , CB_STATUS
+			  , USERID
+			  , CBWRITER
+			  , ORIGINAL_FILENAME
+			  , RENAME_FILENAME
+		 FROM
+		 		COMPLAIN
+		WHERE
+				CB_STATUS = 'Y'
+	 ORDER BY
+	 			CBID DESC
+		 		
+	</select>
+	
+	<insert id="insertComplain" parameterType="Complain">
+		INSERT
+		  INTO COMPLAIN
+		  (
+		  	CBID
+		  , CBTITLE
+		  , CBCONTENT
+		  , CB_CREATE_DATE
+		  , CB_MODIFY_DATE
+		  , CB_COUNT 
+		  , CB_STATUS
+		  , USERID
+		  , CBWRITER
+		  , ORIGINAL_FILENAME
+		  , RENAME_FILENAME
+		  )
+		 VALUES
+		 (
+		 	SEQ_CBID.NEXTVAL
+		  , #{cbtitle}
+		  , #{cbcontent}
+		  , SYSDATE
+		  , SYSDATE
+		  , DEFAULT
+		  , DEFAULT
+		  , #{userid}
+		  , #{cbwriter}
+		  , #{originalfileName}
+		  , #{renamefileName}
+		 )
+	</insert>
+	
+	<update id="updateReadCount" parameterType="_int">
+	UPDATE
+			COMPLAIN
+	   SET
+	   		CB_COUNT = CB_COUNT + 1
+	 WHERE
+	 		CBID = #{cbid}
+	</update>
+	
+	<select id="selectComplain" parameterType="_int" resultMap="complainResultSet">
+	SELECT
+			CBID
+		  , CBTITLE
+		  , CBCONTENT
+		  , CB_CREATE_DATE
+		  , CB_MODIFY_DATE
+		  , CB_COUNT 
+		  , CB_STATUS
+		  , USERID
+		  , CBWRITER
+		  , ORIGINAL_FILENAME
+		  , RENAME_FILENAME
+	 FROM
+	 		COMPLAIN
+	WHERE
+			CBID = #{cbid}
+	  AND
+	  		CB_STATUS = 'Y'
+	</select>
+	
+	<update id="updateComplain" parameterType="Complain">
+	UPDATE
+			COMPLAIN
+	   SET
+	   		CBTITLE = #{cbtitle}
+	   	  , CBCONTENT = #{cbcontent}
+	   	  , CB_MODIFY_DATE = SYSDATE
+	   	  , ORIGINAL_FILENAME = #{originalfileName}
+		  , RENAME_FILENAME = #{renamefileName}
+	 WHERE
+	 		CBID = #{cbid}
+	</update>
+	
+	<update id="deleteComplain" parameterType="_int">
+	UPDATE
+			COMPLAIN
+	   SET
+	   		CB_STATUS = 'N'
+	 WHERE
+	 		CBID = #{cbid}
+	</update>
+	
+	<select id="searchList" parameterType="complSearch" resultMap="complainResultSet">
+	<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+	SELECT
+			CBID
+		  , CBTITLE
+		  , CBCONTENT
+		  , CB_CREATE_DATE
+		  , CB_MODIFY_DATE
+		  , CB_COUNT 
+		  , CB_STATUS
+		  , USERID
+		  , CBWRITER
+		  , ORIGINAL_FILENAME
+		  , RENAME_FILENAME
+	 FROM
+	 		COMPLAIN
+	 	<where>
+	 		<choose>
+	 			<when test="searchCondition == 'title'">
+	 			AND CBTITLE LIKE #{sv}
+	 			</when>
+	 			<when test="searchCondition == 'content'">
+	 			AND CBCONTENT LIKE #{sv}
+	 			</when>
+	 			<when test="searchCondition == 'writer'">
+	 			AND CBWRITER LIKE #{sv}
+	 			</when>
+	 			<otherwise>
+	 			AND (
+	 				CBTITLE LIKE #{sv}
+	 				OR CBCONTENT LIKE #{sv}
+	 				OR CBWRITER LIKE #{sv} 
+	 			)
+	 			</otherwise>
+	 		</choose>
+	 	</where>
+		ORDER BY CBID DESC
+	</select>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="cbreplyResultSet">
+	SELECT
+			RNO
+		  , RCONTENT
+		  , RWRITER
+		  , R_CREATE_DATE
+		  , R_MODIFY_DATE
+		  , R_STATUS
+		  , CBID
+		  , RNO2
+     FROM
+      		CB_REPLY
+    WHERE
+    		CBID = #{cbid}
+    		AND R_STATUS = 'Y'
+   ORDER BY
+   			RNO DESC
+	</select>
+	
+	<insert id="insertReply" parameterType="CBReply">
+	INSERT INTO
+	CB_REPLY
+	(
+		RNO
+	  , RCONTENT
+	  , RWRITER
+	  , R_CREATE_DATE
+	  , R_MODIFY_DATE
+	  , R_STATUS
+	  , CBID
+	)
+	VALUES
+	(
+		SEQ_RNO.NEXTVAL
+	  , #{rcontent}
+	  , #{rwriter}
+	  , SYSDATE
+	  , SYSDATE
+	  , DEFAULT
+	  , #{cbid}
+	)
+	</insert>
+	
+</mapper>

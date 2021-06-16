@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="appointmentMapper">
+<resultMap id="quickResultSet" type="Quick">
+	<id property="qid" column="QID"/>
+	<result property="qname" column="QNAME"/>
+	<result property="qphone" column="QPHONE"/>
+	<result property="qtime" column="Q_TIME"/>
+	<result property="qetc" column="Q_ETC"/>
+	<result property="qstatus" column="Q_STATUS"/>
+	<result property="edate" column="E_DATE"/>
+</resultMap>
+
+<resultMap id="deptResultSet" type="Department">
+	<id property="did" column="DID"/>
+	<result property="deptName" column="DNAME"/>
+</resultMap>
+
+<resultMap id="onlineResultSet" type="Online">
+	<id property="aid" column="AID"/>
+	<result property="userId" column="USERID"/>
+	<result property="did" column="DID"/>
+	<result property="dname" column="D_NAME"/>
+	<result property="phone" column="PHONE"/>
+	<result property="email" column="EMAIL"/>
+	<result property="adate" column="A_DATE"/>
+	<result property="atime" column="A_TIME"/>
+	<result property="astatus" column="A_STATUS"/>
+	<result property="edate" column="E_DATE"/>
+</resultMap>
+
+<resultMap id="onlineResultSet2" type="Online">
+	<id property="aid" column="AID"/>
+	<result property="userId" column="USERID"/>
+	<result property="userName" column="USERNAME"/>
+	<result property="did" column="DID"/>
+	<result property="deptName" column="DEPTNAME"/>
+	<result property="dname" column="DNAME"/>
+	<result property="phone" column="PHONE"/>
+	<result property="email" column="EMAIL"/>
+	<result property="adate" column="A_DATE"/>
+	<result property="atime" column="A_TIME"/>
+	<result property="astatus" column="A_STATUS"/>
+	<result property="edate" column="E_DATE"/>
+</resultMap>
+
+	<insert id="insertQuick" parameterType="Quick">
+		INSERT 
+		INTO APPOINTMENT
+		(
+			   QID
+			 , QNAME
+			 , QPHONE
+			 , Q_TIME
+			 , Q_ETC
+			 , Q_STATUS
+			 , E_DATE
+		)
+		VALUES
+		(
+			   SEQ_QID.NEXTVAL
+			 , #{qname}
+			 , #{qphone}
+			 , #{qtime}
+			 , #{qetc}
+			 , DEFAULT
+			 , DEFAULT
+		)
+	</insert>
+	
+	<select id="quickListCount" parameterType="Quick" resultType="_int">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   APPOINTMENT
+		 WHERE 
+		 	   QNAME = #{ qname }
+		   AND QPHONE = #{ qphone }
+	</select>
+	
+	<select id="selectQuickList" parameterType="Quick" resultMap="quickResultSet">
+		SELECT 
+			   QID
+			 , QNAME
+			 , QPHONE
+			 , Q_TIME
+			 , Q_ETC
+			 , Q_STATUS
+			 , E_DATE
+		  FROM 
+		       APPOINTMENT
+		 WHERE 
+		 	   QNAME = #{ qname }
+		   AND QPHONE = #{ qphone }
+	     ORDER BY E_DATE DESC
+	</select>
+	
+	<update id="updateQuick" parameterType="_int">
+		UPDATE
+		       APPOINTMENT
+		   SET
+		       Q_STATUS = '예약취소'
+		 WHERE
+		       QID = #{ qid }
+	</update>
+	
+	<select id="selectDeptList" resultMap="deptResultSet">
+		SELECT 
+			   DID
+			 , DNAME
+		  FROM
+		       DEPARTMENT
+	</select>
+	
+	<select id="selectDoctorList" resultType="Doctor">
+		SELECT 
+			   USERNAME
+		  FROM 
+		  	   MEMBER
+		 WHERE 
+		 	   GRADE = '의료진'
+		   AND 
+		   	   DID = #{did}
+	</select>
+	
+	<select id="searchDepartment" parameterType="_int" resultType="String">
+		SELECT
+			   DNAME
+		  FROM
+		       DEPARTMENT
+		 WHERE 
+		       DID = #{did}
+	</select>
+	
+	<select id="selectDoctor" parameterType="Doctor" resultType="Doctor">
+		SELECT  
+			   USERNAME
+			 , GRADE
+			 , DAYOFF
+			 , DID
+		  FROM 
+		  	   MEMBER
+		 WHERE 
+		 	   GRADE = '의료진'
+		   AND 
+		   	   DID = #{did}
+		   AND 
+		   	   USERNAME = #{userName}
+	</select>
+	
+	<select id="selectTimeList" parameterType="Online" resultMap="onlineResultSet">
+		SELECT 
+			   A_TIME
+		  FROM 
+		       O_APPOINT
+		 WHERE 
+		       DID = #{did}
+		   AND 
+		   	   D_NAME = #{dname}
+		   AND 
+		   	   A_DATE = #{adate}
+		   AND 
+		   	   A_STATUS = '예약완료'
+	</select>
+	
+	<insert id="insertOnline" parameterType="Online">
+		INSERT 
+		INTO O_APPOINT
+		(
+			   AID
+			 , USERID
+			 , DID
+			 , D_NAME
+			 , PHONE
+			 , EMAIL
+			 , A_DATE
+			 , A_TIME
+			 , A_STATUS
+			 , E_DATE
+		)
+		VALUES
+		(
+			   SEQ_AID.NEXTVAL
+			 , #{ userId }
+			 , #{ did }
+			 , #{ dname }
+			 , #{ phone }
+			 , #{ email }
+			 , #{ adate }
+			 , #{ atime }
+			 , DEFAULT
+			 , SYSDATE
+		)
+	</insert>
+	
+	<select id="onlineListCount" parameterType="String" resultType="_int">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   O_APPOINT
+		 WHERE 
+		 	   USERID = #{ userId }
+	</select>
+	
+	<select id="selectOnlineList" parameterType="String" resultMap="onlineResultSet2">
+		SELECT 
+			   AID
+			 , USERID
+			 , USERNAME
+			 , O.DID DID
+			 , D.DNAME DEPTNAME
+			 , D_NAME DNAME
+			 , O.PHONE PHONE
+			 , O.EMAIL EMAIL
+			 , A_DATE
+			 , A_TIME
+			 , A_STATUS
+			 , E_DATE
+		  FROM 
+			   O_APPOINT O JOIN MEMBER M
+		 USING (USERID) JOIN DEPARTMENT D
+		    ON (O.DID = D.DID)
+		 WHERE 
+		 	   USERID = #{ userId }
+	  ORDER BY E_DATE DESC
+	</select>
+	
+	<update id="updateOnline" parameterType="_int">
+		UPDATE
+		       O_APPOINT
+		   SET
+		       A_STATUS = '예약취소'
+		 WHERE
+		       AID = #{ aid }
+	</update>
+	
+	
+	
+	
+	
+	
+</mapper>

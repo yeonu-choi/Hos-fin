@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mainMapper">
+	<resultMap id="NewsResult" type="News">
+		<id property="nno" column="NNO"/>
+		<result property="ntitle" column="NTITLE"/>
+		<result property="nlink" column="NLINK"/>
+		<result property="ncreateDate" column="N_CREATE_DATE"/>
+	</resultMap>
+	
+	<insert id="insertNews" parameterType="News">
+		INSERT INTO
+			NEWS
+				(
+					NNO,
+					NTITLE,
+					NLINK,
+					N_CREATE_DATE
+				)
+			VALUES
+				(
+					SEQ_NNO.NEXTVAL,
+					#{ntitle},
+					#{nlink},
+					SYSDATE
+				)
+	</insert>
+	
+	<select id="selectNewsList" resultMap="NewsResult">
+		SELECT
+			NNO,
+			NTITLE,
+			NLINK,
+			N_CREATE_DATE
+		FROM
+			(
+			SELECT 
+				NNO,
+				NTITLE,
+				NLINK,
+				N_CREATE_DATE
+			FROM
+				NEWS
+			ORDER BY NNO DESC
+			)
+		WHERE ROWNUM &lt;= 7		
+	</select>
+</mapper>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="complimentMapper">
+
+<resultMap id="complimentSet" type="Compliment">
+	<id property="cno" column="CNO"/>
+	<result property="ctitle" column="CTITLE"/>
+	<result property="ccontent" column="CCONTENT"/>
+	<result property="ccount" column="CCOUNT"/>
+	<result property="ccreateDate" column="C_CREATE_DATE"/>
+	<result property="cmodifyDate" column="C_MODIFY_DATE"/>
+	<result property="cstatus" column="C_STATUS"/>
+	<result property="userId" column="USERID"/>
+	<result property="userName" column="USERNAME"/>
+</resultMap>
+
+<resultMap id="complimentSet2" type="Compliment">
+	<id property="cno" column="CNO"/>
+	<result property="ctitle" column="CTITLE"/>
+	<result property="ccontent" column="CCONTENT"/>
+	<result property="ccount" column="CCOUNT"/>
+	<result property="ccreateDate" column="C_CREATE_DATE"/>
+	<result property="cmodifyDate" column="C_MODIFY_DATE"/>
+	<result property="cstatus" column="C_STATUS"/>
+	<result property="userId" column="USERID"/>
+	<result property="userName" column="USERNAME"/>
+	<result property="heart" column="HEART"/>
+</resultMap>
+
+<resultMap id="attachmentSet" type="cpAttachment">
+	<id property="fid" column="FID"/>
+	<result property="cid" column="CID"/>
+	<result property="cno" column="CNO"/>
+	<result property="cbid" column="CBID"/>
+	<result property="originName" column="ORIGIN_NAME"/>
+	<result property="changeName" column="CHANGE_NAME"/>
+</resultMap>
+<resultMap id="replySet" type="cpReply">
+	<id property="rno" column="RNO"/>
+	<result property="rwriter" column="RWRITER"/>
+	<result property="rwriterName" column="RNAME"/>
+	<result property="rcontent" column="RCONTENT"/>
+	<result property="rcreateDate" column="R_CREATE_DATE"/>
+	<result property="rmodifyDate" column="R_MODIFY_DATE"/>
+	<result property="rstatus" column="R_STATUS"/>
+	<result property="cno" column="CNO"/>
+	<result property="rno2" column="RNO2"/>
+</resultMap>
+
+
+
+	<select id="selectListCount" resultType="_int">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   COMPLIMENT
+		 WHERE 
+		 	   C_STATUS = 'Y'
+	</select>
+
+	<select id="selectList" resultMap="complimentSet">
+		SELECT 
+			   CNO
+			 , CTITLE
+			 , CCONTENT
+			 , CCOUNT
+			 , C_CREATE_DATE
+			 , C_MODIFY_DATE
+			 , C_STATUS, USERID
+			 , SUBSTR(USERNAME,1,1) || LPAD('*',LENGTH(USERNAME)-2,'*') ||SUBSTR(USERNAME, LENGTH(USERNAME), 1) USERNAME
+		  FROM 
+		  	   COMPLIMENT
+		  JOIN 
+		  	   MEMBER USING(USERID)
+		 WHERE 
+		 	   C_STATUS = 'Y'
+	  ORDER BY CNO DESC
+	</select>
+	
+	<insert id="insertCompliment" parameterType="Compliment">
+		INSERT 
+		INTO COMPLIMENT
+		(
+			   CNO
+			 , CTITLE
+			 , CCONTENT
+			 , CCOUNT
+			 , C_CREATE_DATE
+			 , C_MODIFY_DATE
+			 , C_STATUS
+			 , USERID
+		)
+		VALUES 
+		(
+			   SEQ_CNO.NEXTVAL
+			 , #{ctitle}
+			 , #{ccontent}
+			 , DEFAULT
+			 , SYSDATE
+			 , SYSDATE
+			 , DEFAULT
+			 , #{userId}
+		)
+	</insert>
+
+	<insert id="uploadFile" parameterType="cpAttachment">
+		INSERT
+		INTO ATTACHMENT
+		  (
+		  	   FID
+		  	 , CNO
+		  	 , ORIGIN_NAME
+		  	 , CHANGE_NAME
+		  )
+		VALUES
+		  (
+		   	   SEQ_FID.NEXTVAL
+		     , SEQ_CNO.CURRVAL
+		     , #{originName}
+		     , #{changeName}
+		  )
+	</insert>
+	
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE 
+			   COMPLIMENT
+		   SET 
+		   	   CCOUNT = CCOUNT + 1
+		 WHERE 
+		 	   CNO = #{cno}
+	</update>
+	
+	<select id="selectCompoliment" parameterType="_int" resultMap="complimentSet2">
+		SELECT 
+			   CNO
+			 , CTITLE
+			 , CCONTENT
+			 , CCOUNT
+			 , C_CREATE_DATE
+			 , C_MODIFY_DATE
+			 , C_STATUS
+			 , USERID
+			 , SUBSTR(USERNAME,1,1) || LPAD('*',LENGTH(USERNAME)-2,'*') ||SUBSTR(USERNAME, LENGTH(USERNAME), 1) USERNAME
+			 , HEART
+		  FROM 
+		  	  (SELECT 
+		  			   COUNT(*) HEART
+				  FROM 
+				  	   GOOD
+				 WHERE 
+				 	   CNO = #{cno}),
+		  	   COMPLIMENT
+		  JOIN 
+		  	   MEMBER USING(USERID)
+		 WHERE
+		       CNO = #{cno}
+	</select>
+	
+	<select id="selectAttachment" parameterType="_int" resultMap="attachmentSet">
+		SELECT 
+			   FID
+			 , CNO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+		  FROM 
+		  	   ATTACHMENT 
+		 WHERE 
+		 	   CNO = #{cno}
+	</select>
+	
+	<update id="updateCompliment" parameterType="Compliment">
+		UPDATE
+			   COMPLIMENT
+		   SET
+			   CTITLE = #{ctitle}
+			 , CCONTENT = #{ccontent}
+			 , C_MODIFY_DATE = SYSDATE
+		WHERE
+		       CNO = #{cno}
+	</update>
+	
+	<delete id="deleteFile" parameterType="_int">
+		DELETE
+		  FROM
+		  	   ATTACHMENT
+		 WHERE
+		       CNO = #{cno}
+	</delete>
+	
+	<insert id="uploadFile2" parameterType="cpAttachment">
+		INSERT
+		INTO ATTACHMENT
+		  (
+		  	   FID
+		  	 , CNO
+		  	 , ORIGIN_NAME
+		  	 , CHANGE_NAME
+		  )
+		VALUES
+		  (
+		   	   SEQ_FID.NEXTVAL
+		     , #{cno}
+		     , #{originName}
+		     , #{changeName}
+		  )
+	</insert>
+	
+	<update id="deleteCompliment" parameterType="_int">
+		UPDATE
+			   COMPLIMENT
+		   SET
+		   	   C_STATUS = 'N'
+		WHERE
+		       CNO = #{cno}
+	</update>
+	
+	<select id="selectSearchCount" parameterType="cpSearch" resultType="_int">
+	<bind name="search" value="'%' + _parameter.getSearch + '%'"/>
+		SELECT
+			   COUNT(*)
+		  FROM
+		       COMPLIMENT
+		 WHERE
+		 	   C_STATUS = 'Y'
+		<choose>
+			<when test="searchSelect == 'title'">
+			   AND CTITLE LIKE #{search}
+			</when>
+			<when test="searchSelect == 'content'">
+			   AND CCONTENT LIKE #{search}
+			</when>
+			<otherwise>
+			   AND (CTITLE LIKE #{search}
+			   OR CCONTENT LIKE #{search})
+			</otherwise>
+		</choose>
+	
+	</select>
+	
+	<select id="searchCompliment" parameterType="cpSearch" resultMap="complimentSet">
+	<bind name="search" value="'%' + _parameter.getSearch + '%'"/>
+		SELECT 
+			   CNO
+			 , CTITLE
+			 , CCONTENT
+			 , CCOUNT
+			 , C_CREATE_DATE
+			 , C_MODIFY_DATE
+			 , C_STATUS
+			 , USERID
+			 , SUBSTR(USERNAME,1,1) || LPAD('*',LENGTH(USERNAME)-2,'*') ||SUBSTR(USERNAME, LENGTH(USERNAME), 1) USERNAME
+		  FROM 
+		  	   COMPLIMENT
+		  JOIN 
+		  	   MEMBER USING(USERID)
+		 WHERE 
+		 	   C_STATUS = 'Y'
+		 <choose>
+		 	<when test="searchSelect == 'title'">
+		 		AND CTITLE LIKE #{search}
+		 	</when>
+		 	<when test="searchSelect == 'content'">
+		 		AND CCONTENT LIKE #{search}
+		 	</when>
+		 	<otherwise>
+		 		AND (CTITLE LIKE #{search}
+		 		OR CCONTENT LIKE #{search})
+		 	</otherwise>
+		 </choose>
+	  ORDER BY CNO DESC
+	</select>
+	
+	<select id="goodCheck" parameterType="Good" resultType="_int">
+		SELECT 
+			   COUNT(*)
+		  FROM
+		  	   GOOD
+		 WHERE 
+			   CNO = #{cno}
+		   AND USERID = #{userId}
+	</select>
+	
+	<insert id="goodUp" parameterType="Good">
+		INSERT 
+		INTO GOOD 
+			(
+				GID
+			  , CNO
+			  , USERID
+			  )
+		VALUES
+			(
+				SEQ_GID.NEXTVAL
+			  , #{cno}
+			  , #{userId}
+			)
+	</insert>
+	
+	<delete id="goodDown" parameterType="Good">
+		DELETE
+		  FROM 
+		  	   GOOD
+		 WHERE
+		       CNO = #{cno}
+		   AND USERID = #{userId}
+	</delete>
+	
+	<select id="selectGoodCount" parameterType="_int" resultType="_int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		       GOOD
+		 WHERE
+		       CNO = #{cno}
+	</select>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="replySet">
+	  	SELECT 
+	  		   RNO
+	  		 , RWRITER
+	  		 , USERNAME RNAME
+	  		 , RCONTENT
+	  		 , R_CREATE_DATE
+	  		 , R_MODIFY_DATE
+	  		 , R_STATUS
+	  		 , CNO
+	  		 , RNO2
+	  		  <!-- , LEVEL -->
+		 FROM 
+		  	   COM_REPLY 
+		  JOIN MEMBER ON RWRITER = USERID
+		 WHERE 
+		 	   R_STATUS = 'Y'
+	       AND CNO = #{cno}
+	START WITH RNO2 IS NULL
+    CONNECT BY PRIOR RNO = RNO2
+	</select>
+	
+<!-- 	<select id="selectReReplyList" parameterType="_int" resultMap="replySet">
+		SELECT 
+			   RR.RNO RNO
+			 , RR.RWRITER RWRITER
+			 , USERNAME RNAME
+			 , RR.RCONTENT RCONTENT 
+			 , RR.R_CREATE_DATE R_CREATE_DATE
+			 , RR.R_MODIFY_DATE R_MODIFY_DATE
+			 , RR.R_STATUS R_STATUS
+			 , RR.CNO CNO
+			 , RR.RNO2 RNO2
+		 FROM 
+		 	   COM_REPLY RR 
+		  JOIN COM_REPLY R ON RR.RNO2 = R.RNO
+		  JOIN MEMBER ON(RR.RWRITER = USERID) 
+		 WHERE 
+		 	   RR.R_STATUS = 'Y'
+		   AND RR.CNO = #{cno}
+	  ORDER BY R_CREATE_DATE DESC
+	</select>
+	 -->
+	<insert id="insertReply" parameterType="cpReply">
+		INSERT
+		INTO COM_REPLY
+		(
+			   RNO
+			 , RWRITER
+			 , RCONTENT
+			 , R_CREATE_DATE
+			 , R_MODIFY_DATE
+			 , R_STATUS
+			 , CNO
+			 , RNO2
+		)
+		VALUES
+		(
+			   SEQ_COMRNO.NEXTVAL
+			 , #{rwriter}
+			 , #{rcontent}
+			 , SYSDATE
+			 , SYSDATE
+			 , DEFAULT
+			 , #{cno}
+			 , #{rno2}
+		)
+	</insert>
+	
+	<update id="updateReply" parameterType="cpReply">
+		UPDATE
+			   COM_REPLY
+		   SET
+		   	   RCONTENT = #{rcontent}	
+		 WHERE
+		       RNO = #{rno}
+	</update>
+	
+	<select id="checkReply" parameterType="cpReply" resultType="_int">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   COM_REPLY R 
+		  JOIN COM_REPLY RR ON R.RNO2 = RR.RNO
+		 WHERE 
+		       R.CNO = #{cno}
+		   AND R.R_STATUS = 'Y'
+		   AND R.RNO2 = #{rno}
+	</select>
+	
+	<update id="deleteReply" parameterType="_int">
+		UPDATE
+			   COM_REPLY
+		   SET
+		       R_STATUS = 'N'
+		 WHERE
+		       RNO = #{ rno }
+	</update>
+	
+	<select id="selectTopList" resultMap="complimentSet2">
+	SELECT CNO, CTITLE, HEART
+FROM(SELECT CNO, CTITLE, COUNT(*) HEART
+FROM COMPLIMENT JOIN GOOD
+USING (CNO)
+GROUP BY CNO, CTITLE
+ORDER BY HEART DESC, CNO)
+WHERE ROWNUM <![CDATA[ <= ]]> 3
+	</select>
+	
+</mapper>

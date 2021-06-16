@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cultureMapper">
+	<resultMap type="Culture" id="cultureResultSet">
+		<id property="cid" column="CID"/>
+		<result property="ctitle" column="CTITLE"/>
+		<result property="csubtitle" column="CSUBTITLE"/>
+		<result property="ccontent" column="CCONTENT"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+  		<result property="renameFileName" column="RENAME_FILENAME"/>
+		<result property="cstatus" column="C_STATUS"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+  		SELECT
+  				COUNT(*)
+  		  FROM
+  		  		CULTURE
+  		 WHERE
+  		 		C_STATUS = 'Y'		
+	</select>
+
+	<select id="selectList" resultMap="cultureResultSet">
+		SELECT
+				 CID
+			   , CTITLE
+			   , CSUBTITLE
+			   , CCONTENT
+			   , ORIGINAL_FILENAME
+			   , RENAME_FILENAME
+			   , C_STATUS
+		FROM
+				CULTURE
+		WHERE 
+				C_STATUS = 'Y'
+		ORDER BY
+				CID DESC
+	</select>
+	
+	<insert id="insertCulture" parameterType="Culture">
+	INSERT
+	INTO CULTURE
+			(
+				 CID
+			   , CTITLE
+			   , CSUBTITLE
+			   , CCONTENT
+			   , ORIGINAL_FILENAME
+			   , RENAME_FILENAME
+			   , C_STATUS
+			)
+	VALUES
+			(
+				 SEQ_CID.NEXTVAL
+			   , #{ctitle}
+			   , #{csubtitle}
+			   , #{ccontent}
+			   , #{originalFileName}
+			   , #{renameFileName}
+			   , DEFAULT
+			)
+	
+	</insert>
+	
+	<select id="selectCulture" parameterType="_int" resultMap="cultureResultSet">
+   	    SELECT
+				 CID
+			   , CTITLE
+			   , CSUBTITLE
+			   , CCONTENT
+			   , ORIGINAL_FILENAME
+			   , RENAME_FILENAME
+			   , C_STATUS
+		FROM
+				CULTURE
+		WHERE 
+				C_STATUS = 'Y'   	    			
+		AND     CID = #{cid}
+	</select>
+	
+	<delete id="deleteCulture" parameterType="_int">
+		DELETE
+		  FROM
+				CULTURE
+		WHERE
+				CID = #{cid}	
+	</delete>
+	
+	<update id="updateCulture" parameterType="Culture">
+	UPDATE
+			 CULTURE
+	   SET
+	   		 CTITLE = #{ctitle}
+	   	   , CSUBTITLE = #{csubtitle}
+	   	   , CCONTENT = #{ccontent}
+		   , ORIGINAL_FILENAME = #{originalFileName}
+   		   , RENAME_FILENAME = #{renameFileName}
+	 WHERE
+	 		CID = ${cid}
+	</update>
+
+	<select id="morelist" parameterType="_int" resultMap="cultureResultSet">
+	SELECT 	*
+ 	  FROM
+		     (SELECT
+		            *
+				FROM
+						CULTURE
+				WHERE               
+						C_STATUS = 'Y'
+		        ORDER BY CID DESC
+				)
+    WHERE ROWNUM <![CDATA[<=]]> #{stepIndex}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
