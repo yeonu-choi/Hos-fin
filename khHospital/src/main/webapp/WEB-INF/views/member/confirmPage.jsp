@@ -6,78 +6,78 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<title>confirm</title>
-    <style>
-        #cArea {
-            position: relative;
-            width: 100%;
-            text-align: center;
+<title>KH대학병원</title>
+<style>
+    #cArea {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+
+    #vTable {
+        width: 100%;
+
+    }
+
+    #cTitle { 
+        margin-top: 30px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #00a5db;
+        margin-bottom: 10px;
         }
 
-        #vTable {
-            width: 100%;
-
+    #cSub { 
+        font-size: 17px;
+        color: #929292;
+        margin-top: 5px;
         }
 
-        #cTitle { 
-            margin-top: 30px;
-            font-size: 26px;
-            font-weight: 600;
-            color: #00a5db;
-            margin-bottom: 10px;
-            }
+    .vTable tr:not(:first-child) td { padding-top: 10px;}
 
-        #cSub { 
-            font-size: 17px;
-            color: #929292;
-            margin-top: 5px;
-            }
+    #userName, #verifyNo {
+        width: 200px; 
+        height: 40px;
+        background: #f5f5f5;
+        border: none;
+        padding-left: 20px;
+        font-size: 14px;
+    }
 
-        .vTable tr:not(:first-child) td { padding-top: 10px;}
+    #phone {
+        width: 150px; 
+        height: 40px;
+        background: #f5f5f5;
+        padding-left: 20px;
+        border: none;
+        font-size: 14px;
+        padding-bottom: 0;
+    }
 
-        #userName, #verifyNo {
-            width: 200px; 
-            height: 40px;
-            background: #f5f5f5;
-            border: none;
-            padding-left: 20px;
-            font-size: 14px;
-        }
+    .verifyBtn {
+        width: 50px; 
+        height: 40px; 
+        margin-left: -5px;
+        border: none;
+        background: #bdbdbd;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+    }
 
-        #phone {
-            width: 150px; 
-            height: 40px;
-            background: #f5f5f5;
-            padding-left: 20px;
-            border: none;
-            font-size: 14px;
-            padding-bottom: 0;
-        }
-
-        .verifyBtn {
-            width: 50px; 
-            height: 40px; 
-            margin-left: -5px;
-            border: none;
-            background: #bdbdbd;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btns { margin-top: 20px;}
-        
-        #goJoin {
-            width: 120px;
-            height: 40px;
-            border: none;
-            background: #bdbdbd;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    .btns { margin-top: 20px;}
+    
+    #goJoin {
+        width: 120px;
+        height: 40px;
+        border: none;
+        background: #bdbdbd;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
     <div id="cArea">

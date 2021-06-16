@@ -5,158 +5,159 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>join3</title>
-    <style>
-        #top {
-            margin-top: 80px;
-            text-align: center;
-            height: 20%;
-            width: 100%;
-        }
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<title>KH대학병원</title>
+<style>
+    #top {
+        margin-top: 80px;
+        text-align: center;
+        height: 20%;
+        width: 100%;
+    }
 
-        #top-t {
-            margin-left: 10%;
-            width: 80%;
-            color: #00a5db;
-            font-size: 43px;
-            font-weight: 600;
-            margin-bottom: 0;
-        }
+    #top-t {
+        margin-left: 10%;
+        width: 80%;
+        color: #00a5db;
+        font-size: 43px;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
 
-        #top-s {
-            margin-left: 10%;
-            width: 80%;
-            margin-top: 25px;
-            color: #404040;
-            font-size: 19px;
-            font-weight: 600;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #e3e3e3;
-        }
+    #top-s {
+        margin-left: 10%;
+        width: 80%;
+        margin-top: 25px;
+        color: #404040;
+        font-size: 19px;
+        font-weight: 600;
+        padding-bottom: 30px;
+        border-bottom: 2px solid #e3e3e3;
+    }
 
-        #cArea {
-            text-align: center;
-            margin-top: 70px;
-            width: 100%;
-        }
+    #cArea {
+        text-align: center;
+        margin-top: 70px;
+        width: 100%;
+    }
 
-        #cTitle {
-            font-size: 26px;
-            font-weight: 600;
-            color: #404040;
-            margin-bottom: 10px;
-        }
+    #cTitle {
+        font-size: 26px;
+        font-weight: 600;
+        color: #404040;
+        margin-bottom: 10px;
+    }
 
-        #cSub {
-            font-size: 17px;
-            color: #929292;
-            margin-top: 5px;
-        }
+    #cSub {
+        font-size: 17px;
+        color: #929292;
+        margin-top: 5px;
+    }
 
-        #verifyBtn {
-            width: 10%;
-            height: 45px;
-            background: white;
-            border: 1px solid #929292;
-            color: #404040;
-            font-size: 19px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    #verifyBtn {
+        width: 10%;
+        height: 45px;
+        background: white;
+        border: 1px solid #929292;
+        color: #404040;
+        font-size: 19px;
+        font-weight: 600;
+        cursor: pointer;
+    }
 
-        .joinArea {
-            width: 100%;
-            position: relative;
-            margin-bottom: 200px;
-        }
+    .joinArea {
+        width: 100%;
+        position: relative;
+        margin-bottom: 200px;
+    }
 
-        #join {
-            margin-top: 35px;
-            width: 80%;
-        }
+    #join {
+        margin-top: 35px;
+        width: 80%;
+    }
 
-        #in1, #in2, #in3 { margin-top: 18px; }
-        
-        #join input { 
-            width: 200px; 
-            height: 28px;
-            }
-        
-        .innerText { 
-            margin-top: 5px; 
-            font-size: 14px; 
-            }
-        
-        .empa {
-            color : #699be4; 
-            font-size: 21px; 
-            font-weight: 600;
-            }
-       
-        #join tr:first-child { border-top: 3px solid #09a4dd;}
-        #join tr:not(:last-child) { border-bottom: 1px solid #cfcece; }
-        #join tr:last-child { border-bottom: 3px solid #e9e9e9;}
-        
-        #join th { 
-            text-align: right; 
-            font-weight: 500; 
-            background: #f8f8f8;
-            padding-right: 20px;
-            }
-        
-        #join td { padding-left : 15px; }
-        select { width: 130px; height: 30px; }
-        
-        .btns { 
-            width: 100%;
-            margin-top: 50px;
-            text-align: center;
-             }
-        
-        #joinBtn {
-            width: 110px;
-            height: 50px;
-            color: white;
-            border: none;
-            background: #319cee;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
+    #in1, #in2, #in3 { margin-top: 18px; }
+    
+    #join input { 
+        width: 200px; 
+        height: 28px;
         }
+    
+    .innerText { 
+        margin-top: 5px; 
+        font-size: 14px; 
+        }
+    
+    .empa {
+        color : #699be4; 
+        font-size: 21px; 
+        font-weight: 600;
+        }
+   
+    #join tr:first-child { border-top: 3px solid #09a4dd;}
+    #join tr:not(:last-child) { border-bottom: 1px solid #cfcece; }
+    #join tr:last-child { border-bottom: 3px solid #e9e9e9;}
+    
+    #join th { 
+        text-align: right; 
+        font-weight: 500; 
+        background: #f8f8f8;
+        padding-right: 20px;
+        }
+    
+    #join td { padding-left : 15px; }
+    select { width: 130px; height: 30px; }
+    
+    .btns { 
+        width: 100%;
+        margin-top: 50px;
+        text-align: center;
+         }
+    
+    #joinBtn {
+        width: 110px;
+        height: 50px;
+        color: white;
+        border: none;
+        background: #319cee;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
 
-        #backBtn {
-            width: 90px;
-            height: 50px;
-            background: #f8f8f8;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid #dddddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    #backBtn {
+        width: 90px;
+        height: 50px;
+        background: #f8f8f8;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-        #ph, #un { border: none; }
+    #ph, #un { border: none; }
 
-        #ph::placeholder, #un::placeholder {
-            color: black;
-            font-size: 14px;
-        }
-        
-        #ph:focus, #un:focus { outline:none; }
-        
-        #idChk{
-            margin-left : 15px;
-            background: #e9e9e9;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid #b8b8b8;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 150px;
-            height: 34px;
-        }
-    </style>
+    #ph::placeholder, #un::placeholder {
+        color: black;
+        font-size: 14px;
+    }
+    
+    #ph:focus, #un:focus { outline:none; }
+    
+    #idChk{
+        margin-left : 15px;
+        background: #e9e9e9;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #b8b8b8;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 150px;
+        height: 34px;
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -186,7 +187,7 @@
             <tr>
                 <th width="20%" height="80px"><span class="empa">* </span>비밀번호</th>
                 <td><input type="password" id="in2" name="userPwd"><br>
-                    <p class="innerText">영문, 숫자, 특수문자 포함, 최소 8자 ~ 최대 20자를 입력하세요.</p></td>
+                    <p class="innerText">영문, 숫자, 특수문자 모두 포함, 최소 8자 ~ 최대 20자를 입력하세요.</p></td>
             </tr>
             <tr>
                 <th width="20%" height="60px"><span class="empa">* </span>비밀번호확인</th>

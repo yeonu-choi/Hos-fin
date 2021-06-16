@@ -4,101 +4,102 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <title>join2</title>
-    <style>
-         #top {
-            margin-top: 80px;
-            text-align: center;
-            height: 20%;
-            width: 100%;
-        }
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<title>KH대학병원</title>
+<style>
+     #top {
+        margin-top: 80px;
+        text-align: center;
+        height: 20%;
+        width: 100%;
+    }
 
-        #top-t {
-            margin-left: 10%;
-            width: 80%;
-            color: #00a5db;
-            font-size: 43px;
-            font-weight: 600;
-            margin-bottom: 0;
-        }
+    #top-t {
+        margin-left: 10%;
+        width: 80%;
+        color: #00a5db;
+        font-size: 43px;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
 
-        #top-s {
-            margin-left: 10%;
-            width: 80%;
-            margin-top: 25px;
-            color: #404040;
-            font-size: 19px;
-            font-weight: 600;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #e3e3e3;
-        }
+    #top-s {
+        margin-left: 10%;
+        width: 80%;
+        margin-top: 25px;
+        color: #404040;
+        font-size: 19px;
+        font-weight: 600;
+        padding-bottom: 30px;
+        border-bottom: 2px solid #e3e3e3;
+    }
 
-        #outer {
-            width: 100%;
-            height: 80%;
-            margin-bottom: 200px;
-            position: relative;
-        }
+    #outer {
+        width: 100%;
+        height: 80%;
+        margin-bottom: 200px;
+        position: relative;
+    }
 
-        #inner {
-            width: 64%;
-            height: 1100px;
-            background: #f2f2f2;
-            margin-top: 50px;
-            margin-left: 18%;
-        }
+    #inner {
+        width: 64%;
+        height: 1100px;
+        background: #f2f2f2;
+        margin-top: 50px;
+        margin-left: 18%;
+    }
 
-        .agreement {
-            width: 80%;
-            overflow: auto;
-            margin-left: 10%;
-            padding: 10px;
-            background: white;
-            border: 1px solid #cfcfcf;
-        }
+    .agreement {
+        width: 80%;
+        overflow: auto;
+        margin-left: 10%;
+        padding: 10px;
+        background: white;
+        border: 1px solid #cfcfcf;
+    }
 
-        .no1 {
-            height: 350px;
-        }
+    .no1 {
+        height: 350px;
+    }
 
-        .no2 {
-            height: 280px;
-        }
+    .no2 {
+        height: 280px;
+    }
 
-        .aTitle {
-            margin-left: 11%;
-            padding-top: 50px;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: 600;
-        }
+    .aTitle {
+        margin-left: 11%;
+        padding-top: 50px;
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 600;
+    }
 
-        .aChk {
-            float: right;
-            margin-top: 10px;
-            margin-right: 8%;
-        }
+    .aChk {
+        float: right;
+        margin-top: 10px;
+        margin-right: 8%;
+    }
 
-        #joinBtn {
-            width: 40%;
-            height: 60px;
-            margin-top: 50px;
-            margin-left: 30%;
-            background: #14a6d9;
-            border: none;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    #joinBtn {
+        width: 40%;
+        height: 60px;
+        margin-top: 50px;
+        margin-left: 30%;
+        background: #14a6d9;
+        border: none;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
 
-        label { font-size: 16px; }
+    label { font-size: 16px; }
 
-        #chk1, #chk2 {
-            position: relative;
-            top: 1.8px; 
-        }
-    </style>
+    #chk1, #chk2 {
+        position: relative;
+        top: 1.8px; 
+    }
+</style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
