@@ -376,7 +376,8 @@
     			rcon = rcon.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
 	    	}
 	    	$(e).parent().prev().html("");
-	    	$(e).parent().prev().html("<textarea id='rArea2' rows='4' cols='135' maxlength='1000'>" + rcon + "</textarea><div id = 'rModi'><button id='rModiBtn' onclick='replyModify(this," + rid + ",rArea2.value)'>답변 수정</button></div>");
+	    	$(e).parent().prev().html("<textarea id='rArea2' rows='4' cols='135' maxlength='1000'>" + rcon + "</textarea><div id = 'rModi'>
+					  <button id='rModiBtn' onclick='replyModify(this," + rid + ",rArea2.value)'>답변 수정</button></div>");
 	    	
 	    	$("#rArea2").focus();
 	    	$("#rArea2").val(rcon);
