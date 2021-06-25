@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.hospital.main.model.dao.MainDao;
 import com.kh.hospital.main.model.vo.News;
+import com.kh.hospital.notice.model.vo.Notice;
 
 @Service
 public class MainServiceImpl implements MainService{
@@ -22,6 +23,11 @@ public class MainServiceImpl implements MainService{
 	@Override
 	public List<News> selectNewsList() {
 		return nDao.selectNewsList();
+	}
+
+	@Override
+	public List<Notice> selectNoticeList() {
+		return nDao.selectNoticeList();
 	}
 
 }

@@ -109,4 +109,14 @@ public class CounselServiceImpl implements CounselService{
 		return cDao.selectSearchList(pi,s);
 	}
 
+	@Override
+	public int modifyCounselStatus2(int cid) {
+		return cDao.modifyCounselStatus2(cid);
+	}
+
+	@Override
+	public int selectReplyList2(int cid) {
+		return 0;
+	}
+
 }

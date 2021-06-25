@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.hospital.main.model.vo.News;
+import com.kh.hospital.notice.model.vo.Notice;
 
 @Repository
 public class MainDaoImpl implements MainDao{
@@ -22,6 +23,11 @@ public class MainDaoImpl implements MainDao{
 	@Override
 	public List<News> selectNewsList() {
 		return sqlSession.selectList("mainMapper.selectNewsList");
+	}
+
+	@Override
+	public List<Notice> selectNoticeList() {
+		return sqlSession.selectList("mainMapper.selectNoticeList");
 	}
 
 }

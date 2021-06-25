@@ -79,8 +79,8 @@ public class MemberController {
 	   @RequestMapping(value = "confirmPage", method = RequestMethod.POST)
 	     public JSONObject sendSms(HttpServletRequest request) throws Exception {
 
-	       String api_key = "NCSOLTIA7S53CHBO";
-	       String api_secret = "EETOAL0L5KDXBUG0OWUT6B0MJUOHAFDB";
+	       String api_key = "NCS3EQM0ERGFAORQ";
+	       String api_secret = "WJEJNPMCVYUAZT5CQVXGX3YBJAWUSFFC";
 
 	       Coolsms coolsms = new Coolsms(api_key, api_secret);
 	       
@@ -94,7 +94,7 @@ public class MemberController {
 	    	   result.put("duplicate", "중복");
 	       } else {
 	    	   set.put("to", p);
-		       set.put("from", "01073561267");
+		       set.put("from", "01023574741");
 		       set.put("text", "인증번호 ["+(String)request.getParameter("realNo")+"] 입력시 인증 처리됩니다");
 		       set.put("type", "sms");
 		       
@@ -479,8 +479,8 @@ public class MemberController {
 	   @RequestMapping(value = "resetPwSms", method = RequestMethod.POST)
 	     public JSONObject resetPasswordSms(HttpServletRequest request) throws Exception {
 
-	       String api_key = "NCSOLTIA7S53CHBO";
-	       String api_secret = "EETOAL0L5KDXBUG0OWUT6B0MJUOHAFDB";
+		   String api_key = "NCS3EQM0ERGFAORQ";
+	       String api_secret = "WJEJNPMCVYUAZT5CQVXGX3YBJAWUSFFC";
 
 	       Coolsms coolsms = new Coolsms(api_key, api_secret);
 	       
@@ -492,7 +492,7 @@ public class MemberController {
 
 	       if(m != null) {
 	    	   set.put("to", p);
-		       set.put("from", "01073561267");
+		       set.put("from", "01023574741");
 		       set.put("text", "인증번호 ["+(String)request.getParameter("realNo")+"] 입력시 인증 처리됩니다");
 		       set.put("type", "sms");
 		       

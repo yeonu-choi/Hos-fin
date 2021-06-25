@@ -117,4 +117,14 @@ public class CounselDaoImpl implements CounselDao{
 		return sqlSession.selectList("counselMapper.selectSearchList", s, rowBounds);
 	}
 
+	@Override
+	public int modifyCounselStatus2(int cid) {
+		return sqlSession.update("counselMapper.modifyCounselStatus2", cid);
+	}
+
+	@Override
+	public int selectReplyList2(int cid) {
+		return sqlSession.selectOne("counselMapper.selectReplyList2", cid);
+	}
+
 }

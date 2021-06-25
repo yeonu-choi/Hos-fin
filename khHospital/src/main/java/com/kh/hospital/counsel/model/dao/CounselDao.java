@@ -48,4 +48,8 @@ public interface CounselDao {
 
 	List<Counsel> selectSearchList(PageInfo pi, Search s);
 
+	int modifyCounselStatus2(int cid);
+
+	int selectReplyList2(int cid);
+
 }

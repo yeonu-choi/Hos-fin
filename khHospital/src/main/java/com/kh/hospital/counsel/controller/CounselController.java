@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -48,7 +49,8 @@ public class CounselController {
 	
 	@GetMapping("/list")
 	public ModelAndView counselList(int did, ModelAndView mv, 
-			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			@RequestParam(value = "dmsg", required=false) String dmsg) {
 		
 		int listCount = cService.selectListCount(did);
 
@@ -60,6 +62,7 @@ public class CounselController {
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
 			mv.addObject("did", did);
+			mv.addObject("msg", dmsg);
 			mv.setViewName("/counsel/counselList");
 		} else {
 			mv.addObject("msg", "게시글 조회에 실패하였습니다.");
@@ -371,10 +374,13 @@ public class CounselController {
 	}
 	
 	@GetMapping("/delete")
-	public String counselDelete(int cid, int did, HttpServletRequest request, Model model) {
+	public String counselDelete(int cid, int did, HttpServletRequest request, Model model,
+			RedirectAttributes redirectAttributes) {
+		
 		Counsel c = cService.selectCounsel(cid, false);
 		List<Attachment> flist = cService.selectFile(cid); 
 		int result = cService.deleteCounsel(cid);
+		
 		
 		if(result > 0) {
 			if(flist != null) {	
@@ -384,9 +390,8 @@ public class CounselController {
 					}
 				}
 			}
-			model.addAttribute("did", did);
-			model.addAttribute("msg", "게시글이 삭제되었습니다.");
-			return "/counsel/counselList";
+			redirectAttributes.addAttribute("dmsg", "게시글이 삭제되었습니다.");
+			return "redirect:/counsel/list?did=" + did;
 		} else {
 			model.addAttribute("msg", "게시글 삭제에 실패하였습니다.");
 			model.addAttribute("did", did);
@@ -420,12 +425,18 @@ public class CounselController {
 	}
 	
 	@PostMapping("/deleteReply")
-	public void deleteReply(int rid, HttpServletResponse response) throws IOException {
+	public void deleteReply(int rid, int cid, HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
 		
 		int result = cService.deleteReply(rid);
 		
-		if(result > 0) {
+		if(result > 0) {	
+			int rCount = cService.selectReplyList2(cid);
+			
+			if(rCount == 0) {
+				cService.modifyCounselStatus2(cid);
+			}
+			
 			out.write("성공");
 		} else {
 			out.write("실패");
