@@ -139,5 +139,38 @@
 		</where>
 		ORDER BY NID DESC
 	</select>
-	
+	<select id="searchListCount" resultType="_int" parameterType="Search">
+	<bind name="s" value="'%' +_parameter.getSearchValue() + '%'"/>
+		SELECT
+			  COUNT(*)
+		FROM
+			 NOTICE
+		<where>
+			<choose>
+				<when test="searchCondition == 'title'">
+				AND NTITLE LIKE #{s}
+				</when>
+				<when test="searchCondition == 'writer'">
+				AND NWRITER LIKE #{s}
+				</when>
+				<when test="searchCondition == 'content'">
+				AND NCONTENT LIKE #{s}
+				</when>
+				<otherwise>
+				AND (NWRITER LIKE #{s}
+					 OR NTITLE LIKE #{s}
+					 OR NCONTENT LIKE #{s})
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY NID DESC
+	</select>
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE
+			  NOTICE
+		SET
+			  NCOUNT = NCOUNT + 1
+		WHERE
+			  NID = #{nid}  
+</update>
 </mapper>

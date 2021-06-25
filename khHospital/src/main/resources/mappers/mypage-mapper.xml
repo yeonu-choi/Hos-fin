@@ -7,11 +7,45 @@
 		<id property="cid" column="CID"/>
 		<result property="did" column="DID"/>
 		<result property="ctitle" column="CTITLE"/>
-		<result property="ccount" column="C_COUNT"/>
-		<result property="ccreateDate" column="C_CREATE_DATE"/>
-		<result property="cmodifyDate" column="C_MODIFY_DATE"/>
+		<result property="c_content" column="C_CONTENT"/>
+		<result property="c_count" column="C_COUNT"/>
+		<result property="c_createDate" column="C_CREATE_DATE"/>
+		<result property="c_ModifyDate" column="C_MODIFY_DATE"/>
 		<result property="cstatus" column="C_STATUS"/>
-		<result property="userId" column="USERID"/>	
+		<result property="userId" column="USERID"/>
+	</resultMap>
+	
+	<resultMap id="deptResultSet" type="Department">
+		<id property="did" column="DID"/>
+		<result property="deptName" column="DNAME"/>
+	</resultMap>
+	
+	<resultMap id="onlineResultSet" type="Online">
+		<id property="aid" column="AID"/>
+		<result property="userId" column="USERID"/>
+		<result property="did" column="DID"/>
+		<result property="dname" column="D_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="adate" column="A_DATE"/>
+		<result property="atime" column="A_TIME"/>
+		<result property="astatus" column="A_STATUS"/>
+		<result property="edate" column="E_DATE"/>
+	</resultMap>
+
+	<resultMap id="onlineResultSet2" type="Online">
+		<id property="aid" column="AID"/>
+		<result property="userId" column="USERID"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="did" column="DID"/>
+		<result property="deptName" column="DEPTNAME"/>
+		<result property="dname" column="DNAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="adate" column="A_DATE"/>
+		<result property="atime" column="A_TIME"/>
+		<result property="astatus" column="A_STATUS"/>
+		<result property="edate" column="E_DATE"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -40,4 +74,50 @@
 	 ORDER BY
 	 			CID DESC
 	</select>
+	
+	<select id="selectoListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		O_APPOINT
+		 WHERE
+		 		USERID = #{userId}
+		 	AND A_STATUS = '예약완료'
+	</select>
+	
+	<select id="selectoList" resultMap="onlineResultSet2">
+		SELECT 
+				   AID
+				 , USERID
+				 , USERNAME
+				 , O.DID DID
+				 , D.DNAME DEPTNAME
+				 , D_NAME DNAME
+				 , O.PHONE PHONE
+				 , O.EMAIL EMAIL
+				 , A_DATE
+				 , A_TIME
+				 , A_STATUS
+				 , E_DATE
+		  FROM 
+			  	 O_APPOINT O JOIN MEMBER M
+		 USING 	
+		 		(USERID) JOIN DEPARTMENT D 
+		 	ON  (O.DID = D.DID)
+		 WHERE 
+		 	   	USERID = #{ userId }
+	  ORDER BY 
+	  			E_DATE DESC
+	</select>
+	
+	<update id="updateOnline" parameterType="_int">
+		UPDATE
+		       O_APPOINT
+		   SET
+		       A_STATUS = '예약취소'
+		 WHERE
+		       AID = #{ aid }
+	</update>
+	
+	
 </mapper>

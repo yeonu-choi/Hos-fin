@@ -335,4 +335,22 @@
 		ORDER BY
 			CID DESC
 	</select>
+	
+	<update id="modifyCounselStatus2" parameterType="_int">
+		UPDATE
+			COUNSEL
+		SET
+			C_STATUS = '답변대기'
+		WHERE
+			CID = #{cid}
+	</update>
+	
+	<select id="selectReplyList2" parameterType="_int" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			C_REPLY
+		WHERE
+			CID = #{cid}
+	</select>
 </mapper>

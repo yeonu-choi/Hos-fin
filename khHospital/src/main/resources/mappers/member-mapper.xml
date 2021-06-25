@@ -184,6 +184,7 @@
 		AND PHONE = #{phone}
 	</update>
 	
+		
 	<select id="updateMember" parameterType="Member">
 	UPDATE
 				MEMBER
@@ -198,12 +199,10 @@
 	</select>
 	
 	<update id="deleteMember" parameterType="Member">
-	UPDATE
-			MEMBER
-	   SET
-	   		STATUS = 'N'
-	  WHERE
-	  		USERID = #{userId}
+	DELETE	
+	  FROM MEMBER
+	 WHERE
+	  	   USERID = #{userId}
 	   		
 	</update>
 	
@@ -215,4 +214,6 @@
 	 WHERE
 	 		USERID = #{userId}
 	</update>
+	
+	
 </mapper>

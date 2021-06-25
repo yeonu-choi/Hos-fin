@@ -10,6 +10,18 @@
 		<result property="ncreateDate" column="N_CREATE_DATE"/>
 	</resultMap>
 	
+	<resultMap id="NoticeResult" type="Notice">
+		<id property="nid" column="NID"/>
+		<result property="ntitle" column="NTITLE"/>
+		<result property="ncontent" column="NCONTENT"/>
+		<result property="ncreatedate" column="N_CREATE_DATE"/>
+		<result property="nmodifydate" column="N_MODIFY_DATE"/>
+		<result property="nstatus" column="NSTATUS"/>
+		<result property="ncount" column="NCOUNT"/>
+		<result property="nwriter" column="NWRITER"/>
+		<result property="nfile" column="NFILE"/>
+	</resultMap>
+	
 	<insert id="insertNews" parameterType="News">
 		INSERT INTO
 			NEWS
@@ -46,5 +58,24 @@
 			ORDER BY NNO DESC
 			)
 		WHERE ROWNUM &lt;= 7		
+	</select>
+	
+	<select id="selectNoticeList" resultMap="NoticeResult">
+		SELECT
+			   NID,
+			   NTITLE,
+			   NCONTENT,
+			   N_CREATE_DATE,
+			   N_MODIFY_DATE,
+			   NSTATUS,
+			   NCOUNT,
+			   NWRITER,
+			   NFILE
+		FROM
+			   NOTICE
+		WHERE
+			   NSTATUS = 'Y'
+		ORDER BY
+			   NID DESC
 	</select>
 </mapper>

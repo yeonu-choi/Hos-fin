@@ -83,6 +83,14 @@
 			, #{did} 
 		: 화면에 name태그가 did로 작성 되어 있었기 때문에 들어가는 values 에서 들어가는 값이 Department의 did와 같이  did로 설정해 주어야 한다 
 	 -->
+	<update id="updateReadCount" parameterType="_int">
+			UPDATE
+				  NOTICE
+			SET
+				  NCOUNT = NCOUNT + 1
+			WHERE
+				  NID = #{nid}  
+	</update>
 	<select id="selectFaq" parameterType="_int" resultMap="faqResultSet">
 		SELECT
 			    FID
@@ -236,7 +244,7 @@
 				AND FCONTENT LIKE #{s}
 				</when>
 				<otherwise>
-				AND (OR FTITLE LIKE #{s}
+				AND ( FTITLE LIKE #{s}
 					 OR FCONTENT LIKE #{s})
 				</otherwise>
 			</choose>
@@ -269,7 +277,7 @@
 				AND FCONTENT LIKE #{s}
 				</when>
 				<otherwise>
-				AND (OR FTITLE LIKE #{s}
+				AND ( FTITLE LIKE #{s}
 					 OR FCONTENT LIKE #{s})
 				</otherwise>
 			</choose>

@@ -25,7 +25,7 @@
 		<result property="rmodifyDate" column="R_MODIFY_DATE"/>
 		<result property="rstatus" column="R_STATUS"/>
 		<result property="cbid" column="CBID"/>
-		<!-- <result property="rno2" column="RNO2"/> -->
+		<result property="rno2" column="RNO2"/>
 	</resultMap>
 	
 	
@@ -160,7 +160,8 @@
 		  , RENAME_FILENAME
 	 FROM
 	 		COMPLAIN
-	 	<where>
+	WHERE
+			CB_STATUS = 'Y'
 	 		<choose>
 	 			<when test="searchCondition == 'title'">
 	 			AND CBTITLE LIKE #{sv}
@@ -179,7 +180,6 @@
 	 			)
 	 			</otherwise>
 	 		</choose>
-	 	</where>
 		ORDER BY CBID DESC
 	</select>
 	
@@ -213,6 +213,7 @@
 	  , R_MODIFY_DATE
 	  , R_STATUS
 	  , CBID
+	  , RNO2
 	)
 	VALUES
 	(
@@ -223,7 +224,26 @@
 	  , SYSDATE
 	  , DEFAULT
 	  , #{cbid}
+	  , #{rno2}
 	)
 	</insert>
+	
+	<update id="deleteReply" parameterType="_int">
+		UPDATE 
+				CB_REPLY
+		   SET
+		   		R_STATUS = 'N'
+		 WHERE
+		 		RNO = #{rno} 
+	</update>
+	
+	<update id="updateReply" parameterType="CBReply">
+		UPDATE
+				CB_REPLY
+		   SET
+				RCONTENT = #{rcontent}
+		WHERE
+				RNO = #{rno}
+	</update>
 	
 </mapper>
