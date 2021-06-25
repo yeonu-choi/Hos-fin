@@ -282,6 +282,8 @@ pre.contents {
 								<th>작성자</th>
 								<th>작성일</th>
 							</tr>
+							
+							<c:if test="${ fail == null }">
 							<c:forEach items="${ adList }" var="f">
 								<tr onclick="selectFaq(${f.fid});">
 									<c:choose>
@@ -298,6 +300,10 @@ pre.contents {
 									<td>${ f.fcreatedate }</td>
 								</tr>
 							</c:forEach>
+							</c:if>
+								<c:if test="${ fail != null }">
+								<h2>조회 실패</h2>
+								</c:if>
 						</table>
 					</div>
 					
@@ -315,7 +321,7 @@ pre.contents {
 						</c:if>
 						<c:if test="${ pi.currentPage > 1 }">
 							<%-- <c:url var="before" value="/faq/list"> --%>
-							<c:url var="faqListBack" value="${ pa }">
+							<c:url var="before" value="${ pa }">
 								<c:param name="page" value="${ pi.currentPage - 1 }" />
 								<c:if test="${ param.searchValue ne null }">
 									<c:param name="searchId" value="${ param.searchId }"/>
@@ -398,7 +404,7 @@ pre.contents {
 						</c:if>
 						<c:if test="${ pi.currentPage > 1 }">
 							<%-- <c:url var="before" value="/faq/list"> --%>
-							<c:url var="faqListBack" value="${ pa }">
+							<c:url var="before" value="${ pa }">
 								<c:param name="page" value="${ pi.currentPage - 1 }" />
 								<c:if test="${ param.searchValue ne null }">
 									<c:param name="searchId" value="${ param.searchId }"/>

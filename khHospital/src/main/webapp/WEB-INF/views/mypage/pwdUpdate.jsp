@@ -98,7 +98,7 @@
 	    	} else if(newPwd2 == "") {
 	    		alert('새 비밀번호 확인을 입력해주세요.');
 	    		$("#newPwd2").focus();
-	    	} else if(newPwd < 8) {
+	    	} else if(newPwd.length < 8) {
 	    		alert('비밀번호는 8자 이상 20자 이하로 입력해주세요.');
 	    		$("#newPwd").focus();
 	    	} else if(newPwd.search(/\s/) != -1) {
@@ -118,7 +118,8 @@
 	    			success : function(data){
 	    				console.log(data);
 	    				if(data == "confirm") {
-	    					alert('비밀번호가 변경되었습니다.');
+	    					alert('비밀번호가 변경되었습니다. 다시 로그인해 주세요.');
+	    					window.opener.location.href="${contextPath}/member/login"; 
 	    		    		window.close();
 	    		    		
 	    				} else {

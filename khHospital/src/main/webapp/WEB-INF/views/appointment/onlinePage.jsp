@@ -17,6 +17,10 @@
             min-width: 600px;
         }
         
+        #content h1{
+            color: #00a5db;
+        }
+        
         #txtArea{
         	width:90%;
             margin: 30px auto;
@@ -189,7 +193,7 @@
 	                </table>
                 </div>
 				
-				<div id="infoArea">회원 정보 수정은 '마이 페이지 - 회원 정보 수정'에서 수정하시기 바랍니다. &nbsp;&nbsp;&nbsp;<button type="button" onclick="" >바로가기</button></div>
+				<div id="infoArea">회원 정보 수정은 '마이 페이지 - 회원 정보 수정'에서 수정하시기 바랍니다. &nbsp;&nbsp;&nbsp;<button type="button" onclick="location.href='${contextPath}/mypage/modify'" >바로가기</button></div>
 				
 	            <div class="textArea deptArea">   
 	                <div id="departmentArea">

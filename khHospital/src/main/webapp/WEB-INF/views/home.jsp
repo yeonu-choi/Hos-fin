@@ -283,7 +283,7 @@
           <img src="${contextPath}/resources/images/line2.png" class="line">
           <p class="qContent c1">예약했던 내역을</p>
           <p class="qContent c2">확인·취소하실 수 있습니다.</p>
-          <img src="${contextPath}/resources/images/nextbar.png" class="next" onclick="">
+          <img src="${contextPath}/resources/images/nextbar.png" class="next" onclick="location.href='${ contextPath }/appoint/online/list'">
         </div>
         <div class="square menu4">
           <p class="qTitle">1:1 전문의 상담</p>
@@ -348,43 +348,33 @@
               <tr class="line1">
                   <td>공지사항</td>
                   <td class="${contextPath}/resources/images/moreView" align="right">
-                  <a href="">
+                  <a href="${ contextPath }/notice/list">
                       <img src="${contextPath}/resources/images/more.png" width="17px" height="15px">
                   </a>
                   </td>
               </tr>
-              <tr>
-                  <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 안전한 코로나 19 예방 접종을 위해 예방접종 후…</td>
-                  <td class="date">2021.05.11</td>
+              <c:if test="${ empty nlist }">
+            	<tr>
+                <td class="blank" align="center" colspan="2" rowspan="7">등록된 공지사항이 없습니다.</td>
+              	</tr>
+           	  </c:if>
+           	  <c:if test="${ !empty nlist }">
+           	  <c:forEach items="${nlist}" var="n">
+              <tr onclick="toNoticeDetail('${n.nid}')">
+                  <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot">&nbsp;${n.ntitle}</td>
+                  <td class="date">${n.ncreatedate}</td>
               </tr>
-              <tr>
-                  <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 테스트 공지사항 1</td>
-                  <td class="date">2021.05.02</td>
-              </tr>
-              <tr>
-                  <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 테스트 공지사항 2</td>
-                  <td class="date">2021.04.28</td>
-              </tr>
-              <tr>
-                  <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 테스트 공지사항 3</td>
-                  <td class="date">2020.04.09</td>
-              </tr>
-              <tr>
-                <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 테스트 공지사항 4</td>
-                  <td class="date">2020.03.13</td>
-              </tr>
-              <tr>
-                <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 테스트 공지사항 5</td>
-                  <td class="date">2020.02.27</td>
-              </tr>
-              <tr>
-                <td class="title"><img src="${contextPath}/resources/images/dot.jpg" class="dot"> 테스트 공지사항 6</td>
-                  <td class="date">2020.02.06</td>
-              </tr>
-          </table> 
+              </c:forEach>
+      		  </c:if> 
+          </table>
+          <script>
+          	function toNoticeDetail(nid){
+          		location.href="${ contextPath }/notice/detail?nid=" + nid;
+          	}
+          </script> 
       </div>
       </div>
-
+      
       <jsp:include page="common/footer.jsp"/>
 </body>
 </html>

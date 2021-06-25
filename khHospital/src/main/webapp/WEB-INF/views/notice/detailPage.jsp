@@ -172,7 +172,7 @@
             </div>
             <div id="btnArea">
 					<button id="list_btn" onclick="location.href='${ contextPath }/notice/list'">목록</button>
-					<c:if test="${loginUser.userId eq 'admin1' }">
+					<c:if test="${loginUser.userId eq 'admin11' }">
                     <button id="update_btn" onclick="location.href='${ contextPath }/notice/updatePage?nid=${ notice.nid }'">수정</button>
                     <button id="delete_btn" onclick="location.href='${ contextPath }/notice/delete?nid=${ notice.nid }'">삭제</button>
                     </c:if>

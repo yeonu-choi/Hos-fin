@@ -6,10 +6,128 @@
 <head>
 <meta charset="UTF-8">
 <title>문화센터 작성</title>
-<link rel="stylesheet" href="${ contextPath }/resources/css/cultureUpdate.css" type="text/css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body>
+<style>
+
+.title h1 {
+    margin-top: 50px;
+    text-align: center;
+    height: 200px;
+    font-size: 42px;
+    line-height: 200px;
+    
+}
+
+.title p {
+    border-top: 3px solid #a08b65;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* container */
+.container {
+   
+    box-sizing: border-box;
+    margin-bottom: 200px;
+    padding: 0;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.culture_wrap > div{
+    width: 1200px;
+     height: 100%;
+    margin-bottom: 100px;
+}
+
+.culture_info {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.culture_write {
+   
+   
+    height: 1000px;
+    
+}
+
+.culture_list > ul {
+    list-style: none;   
+}
+
+.culture_list ul li {
+    position: relative;
+    width: 360px;
+   
+    float: left;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    height: 500px;
+}
+
+/* 사진 등록 */
+
+.culture_write  {
+    
+    width: 100%;
+    height: auto;
+    
+}
+
+#writeForm {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    border: 2px solid #006a79;
+}
+
+#writeForm h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.input_area input {
+    border: 2px solid #006a79;
+    padding: 10px;
+    width: 90%;
+    
+}
+
+textarea {
+    width : 90%;
+    height : 200px;
+    padding : 10px 10px 14px 10px;
+    border: solid 2px #006a79;
+}
+
+.btnArea {
+    text-align: center;
+   margin-bottom: 100px;
+    margin-top: 20px;
+}
+.btnArea button {
+    cursor: pointer;
+    background-color: #006a79;
+    width: 120px;
+    height: 40px;
+    color: white;
+}
+
+
+.img_area {
+    width: 1200px;
+    height: 800px;
+}
+
+</style>
  	<jsp:include page="../common/menubar.jsp"/>
 
     <div class="title">
@@ -30,9 +148,9 @@
                     <form action="" id="writeForm" method="post" enctype="multipart/form-data">
                         
                         <h4>사진</h4>
-                        <div>
+                        <div class="img_area">
                             <c:if test="${ !empty Culture.renameFileName }">
-                                <img src="${ contextPath }/resources/cuploadFiles/${ Culture.renameFileName}" width="100%" height="100%">
+                                <img src="${ contextPath }/resources/cuploadFiles/${ Culture.renameFileName}" width="1200px" height="800px">
                                                         
                             </c:if>
                         </div>
@@ -44,10 +162,10 @@
                         <textarea name="ccontent" style="resize:none;" readonly>${ Culture.ccontent }</textarea>
                         
                        
-                        
+                 
                         <div class="btnArea">
-                            <button class="btn" type="button" onclick="javascript:history.back();">뒤로가기</button>
-                            <c:if test="${ loginUser.userId eq 'admin1' }">
+                            <button class="btn" type="button" onclick="location.href='${ contextPath }/culture/culturelist'">목록으로</button>
+                            <c:if test="${ loginUser.userId eq 'admin11' }">
                             <button onclick="cultureUpdate()" type="button">수정하기</button>
                             <button onclick="cultureDelete()" type="button">삭제하기</button>
                             </c:if>
@@ -62,10 +180,12 @@
 		
     </div>
     
+    <jsp:include page="../common/footer.jsp"/>
+    
     <script>
 	function cultureDelete() {
 		var cid = ${param.cid}
-	
+		
 		console.log(cid);
 		location.href = '${ contextPath }/culture/delete?cid=' + cid;
 		

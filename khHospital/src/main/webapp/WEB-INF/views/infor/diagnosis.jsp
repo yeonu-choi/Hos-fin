@@ -5,10 +5,141 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${ contextPath }/resources/css/diagnosis.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-
 </head>
+<style>
+.title h1 {
+    margin-top: 50px;
+    text-align: center;
+    height: 200px;
+    font-size: 42px;
+    line-height: 200px;
+    
+}
+
+.title p {
+    border-top: 3px solid #a08b65;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* container */
+
+
+.guide_wrap {
+   
+    height: 1500px;
+    
+}
+
+.guide_wrap > div {
+    width: 1200px;
+}
+
+.diagnosis {
+   
+    margin-left: auto;
+    margin-right: auto;
+
+    
+}
+
+.diagnosis h4 {
+    border-bottom : 3px solid #a08b65;
+    text-align: left;
+    margin-bottom: 50px;
+    padding-bottom: 17px;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 52px;
+    
+    padding-top: 30px;
+}
+
+.diagnosis_time > div:first-child {
+    border: 1px solid;
+    margin-bottom: 100px;
+    border-bottom: 1px solid #ebebeb;
+    width: 50px;
+}
+
+.diagnosis img {
+    margin-right: 10px;
+    padding: 30px;
+    background-color:  #006a79;
+    border-radius: 130px;
+    margin-left: 20px;
+}
+
+.diagnosis_time div {
+    
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.diagnosis_time > div:last-child {
+    display: inline-block;
+    width: 700px;
+    
+    
+}
+
+.diagnosis_time div dl {
+    border-left: 2px solid;
+    border-top: 0;
+    line-height: 85px;
+    height: 100px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 100px;
+    
+}
+
+.diagnosis_time div dl dt {
+    width: 100px;
+    float: left;
+    
+}
+
+.diagnosis_time div dl dd {
+   
+    width: 200px;
+    float: left;
+}
+
+/* 접수및 예약*/
+.diagnosis_receipt {
+   
+    margin-top: 60px;
+    height: 600px;
+}
+
+.diagnosis_receipt div{
+    
+    display: inline-block;
+    margin-left: 40px;
+    
+}
+
+.diagnosis_receipt div:last-child {
+    border-left: 2px solid;
+    display: inline-block;
+    margin-left: 130px;
+
+}
+
+.diagnosis_receipt table {
+    
+    height: 300px;
+    text-align: center;
+    width: 670px;
+    font-size: 15px;
+    font-weight: 700;
+    
+}
+
+</style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 

@@ -49,6 +49,10 @@
     #p2 {
         font-size: 12px;
     } 
+    
+    #p3 {
+   		font-size : 20px;
+    }
 
     .pro {
         display: flex;
@@ -105,15 +109,16 @@
 	        text-align: center;
         }
 
-	    #coun{
+	    #cs{
 	        background-color: rgb(57, 133, 247);
 	        width : 180px;
 	        height : 40px;
 	        border-radius: 3px;
 	        color : white;
 	        border : none;
-	        margin-top: 20px;
+	        margin-top: 40px;
 	        font-size : 20px;
+            margin-bottom : 60px;
 	    }
 
 </style>
@@ -121,17 +126,7 @@
 <jsp:include page="../common/menubar.jsp"/>
     <div class="outer" align="center">
         <h1>1:1 전문의 상담</h1>
-        
-        <%-- <div class="menuArea">
-            <table id="menu">
-               <tr>
-	             <td class="menu mp" onclick="location.href='${ contextPath }/mypage/modify'">개인 정보 수정</td>
-	             <td class="menu re" onclick="location.href='${ contextPath }/mypage/reservation'">예약 내역 확인</td>
-	             <td class="menu coun" onclick="location.href='${ contextPath }/mypage/counsel'">1:1 전문의 상담</td>
-	         </tr>
-            </table>
-        </div> --%>
-
+      
         <div id="notice" align="center">
             <p id="p1" align="left">
                 의료 상담, 건강 상담을 위한 '1:1 전문의 상담'을 이용해 주세요.<br>
@@ -152,10 +147,10 @@
 				</tr>
 				
 				<c:forEach items="${ list }" var="cs">
-					<tr onclick="selectCounsel(${ cs.cid })">
+					<tr onclick="selectCounsel(${ cs.cid }, ${ cs.did })">
 						<td>${ cs.cid }</td>
 						<td>${ cs.ctitle }</td>
-						<td><fmt:formatDate value="${ cs.ccreateDate }" pattern="yy.MM.dd"/></td>
+						<td><fmt:formatDate value="${ cs.c_createDate }" pattern="yy.MM.dd"/></td>
 						<td>${ cs.cstatus }</td>
 					</tr>
 				</c:forEach>
@@ -164,18 +159,19 @@
 		</div>
         <c:if test="${ empty list }">
         <img src="../resources/images/no2.png" width="200px" height="200px">
-        	<p>상담 내역이 없습니다.</p>
+        	<p id="p3">상담 내역이 없습니다.</p>
         </c:if>
 
         <div class="btnArea" align="center">
-            <button id="coun" onclick="location.href='${contextPath}/counsel/select'">1:1 상담하기</button>
+            <button id="cs" onclick="location.href='${contextPath}/counsel/select'">1:1 상담하기</button>
         </div>
         
     </div>
     
     <script>
-    	function selectCounsel(cid) {
-    		location.href='${contextPath}/counsel/detail?cid' + cid + "&page=${pi.currentPage}";
+    	function selectCounsel(cid, did) {
+    		
+    		location.href='${contextPath}/counsel/detail?cid=' + cid + '&did=' + did + '&page=${pi.currentPage}';
     	}
     </script>
     

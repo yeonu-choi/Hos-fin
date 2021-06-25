@@ -17,6 +17,10 @@
             min-width: 600px;
         }
         
+        #content h1{
+            color: #00a5db;
+        }
+        
         #txtArea{
         	width:90%;
             margin: 30px auto;
@@ -242,22 +246,6 @@
                     <button type="button" id="appointmentBtn">예약</button>
                 </div>
 
-	<%--           <div>
-                    	<h2>${ loginUser.userName } 님 </h2>
-                        <input type="hidden" name="userId" value="${ o.userId }">
-                        <input type="hidden" name="phone" value="${ o.phone }">
-                        <input type="hidden" name="email" value="${ o.email }">
-                        <input type="hidden" name="did" value="${ o.did }">
-                        <input type="hidden" name="deptName" value="${ o.deptName }">
-                        <input type="hidden" name="dname" value="${ o.dname }">
-                        <label>생년월일 : ${ loginUser.birth }</label>
-                        <label>성별 : <c:if test="${ loginUser.gender eq '남자' }">남자</c:if>
-                        <c:if test="${ loginUser.gender eq '여자' }">여자</c:if></label><br>
-                        <label>핸드폰 : ${ o.phone }</label>
-                        <label>이메일 : ${ o.email }</label><br>
-                        <label>진료과 : ${ o.deptName }</label>
-                        <label>의료진 : ${ o.dname }</label>
-                    </div> --%>
 
             </form>
         </div>
@@ -273,13 +261,13 @@
             nextText: '다음 달',
             monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],	//한글 캘린더중 월 표시를 위한 부분
             monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],	//한글 캘린더 중 월 표시를 위한 부분
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],	// 한글 요일 표시 부분
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],		// 한글 요일 표시 부분
             minDate:"+1d",
             maxDate:"+2m 30d",
             beforeShowDay : function(date){
-            	var day = date.getDay();				// 요일을 숫자로 가져옴
-        		return [(dayOff.indexOf(day) == -1)]	// dayOff = [3, 6] -> day = 0, 1, 2, 4, 5 일때  dayOff.indexOf(day) 가  -1 -> true day가  0, 1, 2, 4, 5 일때 선택 가능
-        												// dayOff = [3, 6] -> day = 3, 6 일때 dayOff.indexOf(day) 가 1 -> false -> day가 3, 6 일때 선택 불가
+            	var day = date.getDay();							// 요일을 숫자로 가져옴
+        		return [(dayOff.indexOf(day) == -1)]				// dayOff = [3, 6] -> day = 0, 1, 2, 4, 5 일때  dayOff.indexOf(day) 가  -1 -> true day가  0, 1, 2, 4, 5 일때 선택 가능
+        															// dayOff = [3, 6] -> day = 3, 6 일때 dayOff.indexOf(day) 가 1 -> false -> day가 3, 6 일때 선택 불가
         	},
             numberOfMonths :[1,3],
             changeMonth: false,
@@ -300,9 +288,10 @@
             	dataType : "json",
             	success : function(data){
             		console.log(data);
-            		var radio = $('.time input');
+            		
             		$('.time').find('input').each(function(i, e){
             			var value = $(this).val();
+            			$(this).prop('checked', false);
             			$(this).prop('disabled', false);
             			
             			for(var j in data){

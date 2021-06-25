@@ -182,39 +182,52 @@
             </div>
             
             <div class="pageCount">
-            	<!-- [이전] -->
-					<c:if test="${ pi.currentPage <= 1 }">
-						[이전] &nbsp;
-					</c:if>
-					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="before" value="/notice/list">
-							<c:param name="page" value="${ pi.currentPage - 1 }"/>
-						</c:url>
-						<a href="${ before }">[이전]</a> &nbsp;
-					</c:if>
-					<!-- 페이지 숫자 -->
-					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-						<c:if test="${ p eq pi.currentPage }">
-							<font color="red" size="4"><b>[ ${ p } ]</b></font> &nbsp;
+						<!-- [이전] -->
+						<c:if test="${ pi.currentPage <= 1 }">
+							[이전] &nbsp;
 						</c:if>
-						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="pagination" value="/notice/list">
-								<c:param name="page" value="${ p }"/>
+						<c:if test="${ pi.currentPage > 1 }">
+							<c:url var="before" value="${ pa }">
+								<c:param name="page" value="${ pi.currentPage - 1 }" />
+								<c:if test="${ param.searchValue ne null }">
+									<c:param name="searchCondition" value="${ param.searchCondition }"/>
+									<c:param name="searchValue" value="${ param.searchValue }"/>
+								</c:if>
 							</c:url>
-							<a href="${ pagination }">${ p }</a> &nbsp;
+							<a href="${ before }">[이전]</a> &nbsp;
 						</c:if>
-					</c:forEach>
-					<!-- [다음] -->
-					<c:if test="${ pi.currentPage >= pi.maxPage }">
-						[다음]
-					</c:if>
-					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="/notice/list">
-							<c:param name="page" value="${ pi.currentPage + 1 }"/>
-						</c:url>
-						<a href="${ after }">[다음]</a>
-					</c:if>
-            </div>
+						
+						<!-- 페이지 숫자 -->
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:if test="${ p eq pi.currentPage }">
+								<font color="red" size="4"><b>[ ${ p } ]</b></font> &nbsp;
+							</c:if>
+							<c:if test="${ p ne pi.currentPage }">
+								<c:url var="pagination" value="${ pa }">
+									<c:param name="page" value="${ p }" />
+									<c:if test="${ param.searchValue ne null }">
+										<c:param name="searchCondition" value="${ param.searchCondition }"/>
+										<c:param name="searchValue" value="${ param.searchValue }"/>
+									</c:if>
+								</c:url>
+								<a href="${ pagination }">${ p }</a> &nbsp;
+							</c:if>
+						</c:forEach>
+						<!-- [다음] -->
+						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							[다음]
+						</c:if>
+						<c:if test="${ pi.currentPage < pi.maxPage }">
+							<c:url var="after" value="${ pa }">
+								<c:param name="page" value="${ pi.currentPage + 1 }" />
+								<c:if test="${ param.searchValue ne null }">
+									<c:param name="searchCondition" value="${ param.searchCondition }"/>
+									<c:param name="searchValue" value="${ param.searchValue }"/>
+								</c:if>
+							</c:url>
+							<a href="${ after }">[다음]</a>
+						</c:if>
+					</div>
             
             <div id="btnArea">
             <form action="${ contextPath }/notice/search" method="get">

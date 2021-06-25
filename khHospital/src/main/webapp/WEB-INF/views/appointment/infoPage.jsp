@@ -39,6 +39,7 @@
     		font-size: large;
             background-color: rgb(226 229 234);
             padding: 30px 175px;
+            
         }
         
         .tab{
@@ -55,6 +56,10 @@
         .tabArea .on{
             display:block;
         }
+        
+        .tabArea h1{
+         	color: #00a5db;
+         }
         
         .tabUl li .on {
             background-color: rgb(211, 232, 255);

@@ -259,7 +259,7 @@
             </div>
             </c:if>
             <script>
-	            $('.rArea').keyup(function(){
+	            $('#rArea').keyup(function(){
 	            	var txLength = $(this).val().length; 
 	            	var remain = 1000-txLength; 
 	                
@@ -288,7 +288,7 @@
                         <th align="center" width="12%">
                         <c:if test="${loginUser.grade == '의사' && loginUser.userName == r.userName}">
                         <button type="button" class="rModify" onclick="rModify(this,${r.rid},'${r.rcontent}')">수정</button> 
-                        <button type="button" class="rDelete" onclick="rDelete(this,${r.rid})">삭제</button>
+                        <button type="button" class="rDelete" onclick="rDelete(this,${r.rid},${r.cid})">삭제</button>
                         </c:if>
                         </th>
                     </tr>
@@ -330,7 +330,7 @@
 						rcreateDate1 = $("<th align='right' width='7%'>").text("등록일");
 						rcreateDate2 = $("<td align='center' width='10%'>").text(data[i].rcreateDate);
 						rcontent = $("<td colspan='3' class='rContent'>").html(data[i].rcontent);
-						rbtn = $("<th align='center' width='12%'>").html("<button type='button' class='rModify' onclick='rModify(this," + data[i].rid + "," + data[i].rcontent + ")'>수정</button>&nbsp;<button type='button' class='rDelete' onclick='rDelete(this,"+ data[i].rid + ")'>삭제</button>");
+						rbtn = $("<th align='center' width='12%'>").html("<button type='button' class='rModify' onclick='rModify(this," + data[i].rid + ",&quot" + data[i].rcontent + "&quot)'>수정</button>&nbsp;<button type='button' class='rDelete' onclick='rDelete(this,"+ data[i].rid + "," + cid + ")'>삭제</button>");
 						
 						tr1.append(userId1, userId2, rcreateDate1, rcreateDate2);
 						tr2.append(rcontent);
@@ -348,13 +348,13 @@
 			});
 		});
 	    
-	    function rDelete(e, rid){ 	
+	    function rDelete(e, rid, cid){ 	
 	    	if(!confirm("삭제하시겠습니까"))
 	    		return;
 	    	
 	    	$.ajax({
 				url : "${contextPath}/counsel/deleteReply",
-				data : {"rid" : rid},
+				data : {"rid" : rid, "cid" : cid},
 				type : "post",
 				success : function(data){
 					if(data == '성공'){
@@ -372,12 +372,13 @@
 	    }
 	    
 	    function rModify(e, rid, rcon){
+	    	
+	    	console.log(rcon);
 	    	if(rcon.indexOf('<br/>') !== -1){
     			rcon = rcon.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
 	    	}
 	    	$(e).parent().prev().html("");
-	    	$(e).parent().prev().html("<textarea id='rArea2' rows='4' cols='135' maxlength='1000'>" + rcon + "</textarea><div id = 'rModi'>
-					  <button id='rModiBtn' onclick='replyModify(this," + rid + ",rArea2.value)'>답변 수정</button></div>");
+	    	$(e).parent().prev().html("<textarea id='rArea2' rows='4' cols='135' maxlength='1000'>" + rcon + "</textarea><div id = 'rModi'><button id='rModiBtn' onclick='replyModify(this," + rid + ",rArea2.value)'>답변 수정</button></div>");
 	    	
 	    	$("#rArea2").focus();
 	    	$("#rArea2").val(rcon);

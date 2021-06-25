@@ -122,7 +122,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            left: 35%;
+            left: 33%;
         }
 
         #subMenu ul {
@@ -163,7 +163,7 @@
 
         #subArea02 {
            position: absolute;
-           left: 10.5%;
+           left: 12.5%;
            display: none;
         }
 
@@ -173,7 +173,7 @@
 
         #subArea03 {
            position: absolute;
-           left: 19.5%;
+           left: 21.5%;
            display: none;
         }
 
@@ -183,7 +183,7 @@
 
         #subArea04 {
            position: absolute;
-           left: 27%;
+           left: 30.5%;
            display: none;
         }
 
@@ -203,25 +203,25 @@
 
         #sub-subArea1 {
             position: absolute;
-            left: 13.5%;
+            left: 14.5%;
             display: none;
         }
 
         #sub-subArea2 {
             position: absolute;
-            left: 13.5%;
+            left: 14.5%;
             display: none;
         }
 
         #sub-subArea3 {
             position: absolute;
-            left: 22%;
+            left: 25%;
             display: none;
         }
 
         #sub-subArea4 {
             position: absolute;
-            left: 22%;
+            left: 25%;
             display: none;
         }
 

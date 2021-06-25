@@ -16,6 +16,10 @@
             min-width: 600px;
         }
         
+        #content h1{
+            color: #00a5db;
+        }
+        
         .txtArea{
             float: right;
             color: red;

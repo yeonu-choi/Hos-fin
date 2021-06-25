@@ -20,6 +20,7 @@
         
         h1{
         	padding-right:130px;
+        	color: #00a5db;
         }
 
         /* img, txt*/

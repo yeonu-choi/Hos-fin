@@ -99,6 +99,8 @@
     </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	
 	<section id="outer">
         <div id="faqTop">
             <h1>FAQ </h1>
@@ -140,5 +142,7 @@
             </div>
         </div>
     </section>
+    
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

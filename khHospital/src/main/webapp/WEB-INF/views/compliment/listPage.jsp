@@ -18,9 +18,12 @@
             min-width: 600px;
         }
         
+        
+        
         #content h1{
     		font-size: 2em;
         	font-weight:1000;
+            color: #00a5db;
         }
         
         

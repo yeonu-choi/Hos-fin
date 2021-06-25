@@ -126,8 +126,9 @@
 	             ＊ 운영 취지에 맞지 않거나 비방 및 욕설은 관리자에 의하여 임의 삭제될 수 있습니다.
 	        </p>
 	    </div>
-	    
+	    <br>
 	    <div class="searchArea">
+	    <br>
 	   	<form action="${contextPath}/complain/search" method="get">
 		   	<select id="searchCondition" name="searchCondition">
 		   		<option value="all" <c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>

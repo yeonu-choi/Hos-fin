@@ -16,6 +16,7 @@
             margin-bottom:200px;
         }
         
+        
         .infoArea {
             width:700px;
             border : 1px solid rgba(224, 231, 236, 0.897);
@@ -46,7 +47,7 @@
 		
     <div id="content">
         <div class="infoArea">
-			<div id="">
+			<div>
 				<h2>${ loginUser.userName }님 예약 완료 되었습니다.</h2><br>
                 <p>
                 	<label>${o.deptName}</label>

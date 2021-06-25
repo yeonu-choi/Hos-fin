@@ -15,6 +15,9 @@
             min-width: 600px;
         }
         
+        #content h1{
+            color: #00a5db;
+        }
 
         #txtArea{
             margin: 30px 0px;

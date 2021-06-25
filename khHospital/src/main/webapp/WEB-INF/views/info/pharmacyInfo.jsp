@@ -17,6 +17,10 @@
         min-width: 1000px;
     }
     
+    #content h1{
+            color: #00a5db;
+    }
+    
     #map{
     	width:1000px;
     	height:700px;

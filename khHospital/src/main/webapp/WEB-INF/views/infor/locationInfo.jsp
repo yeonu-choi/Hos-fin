@@ -6,10 +6,261 @@
 <head>
 <meta charset="UTF-8">
 <title>길안내</title>
-<link rel="stylesheet" href="${ contextPath }/resources/css/locationInfo.css" type="text/css">
+
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=rc1mz35nzp"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
+<style>
+
+
+.title h1 {
+    margin-top: 50px;
+    text-align: center;
+    height: 200px;
+    font-size: 42px;
+    line-height: 200px;
+}
+
+.title p {
+    border-top: 3px solid #a08b65;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#content {
+   
+    height: 200px;
+
+}
+/* wrap */
+.guide_wrap {  
+    display: block;
+  
+}
+
+.guide_tap {
+    margin-left: auto;
+    margin-right: auto;
+    height: 100px;
+   
+    
+}
+
+.guide_wrap div {
+    width : 1200px
+    
+}
+
+/* tab */
+
+.guide_tap ul {
+    list-style: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
+.tab_style01 li { 
+    border: 1px solid #ccc; 
+    position: relative;
+    float: left;
+    display: block;
+    text-align: center;
+    width: 50%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  	left: -20px;
+
+}
+
+.tab_style01 li a {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bolder;
+    line-height: 64px;
+    height: 60px;
+    color: black;
+    
+}
+
+/* 스크립트 li 실행시 class가 on으로 변경 */
+.tab_style01 li.on {
+    border-top: 3px solid #a08b65;
+    border-left: 3px solid  #a08b65;
+    border-right: 3px solid #a08b65;
+    border-bottom: 0;
+    
+}
+
+
+/* train */
+.load_guide h4 {
+    height: 53px;
+    margin-bottom: 40px;
+    padding-bottom: 17px;
+    color: #000;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 30px;
+    border-bottom: 3px solid #a08b65;
+}
+
+.load_guide {
+    padding-top: 30px; 
+    display: flex;
+    
+}
+
+
+
+.tab_contents {
+    display: block;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+}
+
+.train ul {
+    border: 3px solid #00b050;
+    width: 420px;
+    height: 360px;
+    display: inline-block;
+
+}
+
+.train img {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+   
+    margin-top: 10px;
+    
+}
+
+.train ul li {
+    list-style: none;
+
+    width: 300px;
+    display: block;
+    position: relative;
+    font-size: 18px;
+    margin-top: 10px;
+    
+}
+
+.bus ul {
+    border: 3px solid #00b050;
+    display: inline-block;
+    width: 420px;
+    height: 360px;
+    
+}
+
+.bus img {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.bus ul li {
+    list-style: none;
+    position: relative;
+    font-size: 18px;   
+    margin-top: 10px;
+    width: 300px;
+    display: block;
+   
+}
+/* color */
+
+.green {
+    color: #00b050;
+}
+
+.blue {
+    color: #0070c0;
+}
+
+/* park_guide */
+.park_guide h4 {
+    height: 53px;
+    margin-bottom: 40px;
+    padding-bottom: 17px;
+    color: #000;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 30px;
+    border-bottom: 3px solid #a08b65;
+
+}
+
+/* park table */
+caption {
+    display: none;
+}
+.table_style02 table {
+    width: 100%;
+    text-align: center;
+    border: 3px solid gray;
+    border-collapse: collapse;
+}
+
+.table_style02 table th {
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    height: 60px;
+}
+
+.table_style02 table td {
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    height: 60px;
+}
+
+
+/* map */
+#naver_map {
+    border: 2px solid #00b050;
+    width: 100%;
+    height: 400px;
+        
+}
+
+.park_picture {
+    border: 3px solid gray;
+    margin-top: 20px;
+    display: flex;
+}
+
+.park_picture > div {
+    padding: 10px;
+}
+
+.park_picture > div> div {
+    display: inline-block;
+    border: 2px solid gray;
+    width: 410px;
+    text-align: center;
+    height: 180px;
+    margin-top: 10px;
+    background-color: #f7f7f7;
+
+}
+
+.park_picture > div > div h3 {
+    line-height: 100px;
+}
+
+.container {
+    margin-bottom: 200px;
+}
+</style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 
@@ -48,21 +299,22 @@
                     <div class="train">
                         <h4>지하철 이용안내</h4>
                             <ul>
+                            <img src="${contextPath}/resources/images/free-icon-underground-66273.png">
                                 <li>
-                                    "5호선 <strong class="green">우장산역 4번 출구</strong> "
+                                    "2호선 <strong class="green">강남역 4번 출구</strong> "
                                     <em>-></em>
                                     "도보 8분 소요"
                                 </li>
                                 <li>
-                                    "5호선 <strong class="green">발산역 7번 출구</strong> "
+                                    "2호선 <strong class="green">강남역 7번 출구</strong> "
                                     <em>-></em>
                                     "도보 10분 소요"
                                 </li>
                                 <li>
                                     "공항에서 오실 때,
                                     <strong class="blue">공항철도 김포공항역</strong>
-                                    에 하차하여, 5호선 환승하여
-                                    <strong class="green">발산역 / 우장산역</strong>에서 하차해 주세요."
+                                    에 하차하여, 9호선 환승하여
+                                    <strong class="green">강남역 / 강남(신분당선)역</strong>에서 하차해 주세요."
                                 </li>
                             </ul>
                             
@@ -72,8 +324,9 @@
                     <div class="bus">
                         <h4>버스 이용안내</h4>
                             <ul>
+                            <img src="${contextPath}/resources/images/iconmonstr-bus-7-240.png">
                                 <li>
-                                    "버스 (명덕고입구 하차)"
+                                    "버스 (강남세무서입구 하차)"
                                     <br>
                                     <strong class="green">6629</strong>,
                                     <strong class="green">6630</strong>,
@@ -81,14 +334,14 @@
                                     <strong class="blue">652</strong>
                                 </li>
                                 <li>
-                                    "마을버스 (명덕고입구 하차)"
+                                    "마을버스 (네이버파트너스퀘어 하차)"
                                     <br>
                                     <strong class="green">05</strong>
                                     ,
                                     <strong class="green">06</strong>
                                 </li>
                                 <li>
-                                    "공항리무진 (발산역 하차 후 도보)"
+                                    "공항리무진 (강남역 하차 후 도보)"
                                     <br>
                                     <strong>
                                         600, 601, 602, 602-1, 603,
@@ -170,7 +423,7 @@
     
     // 지도 설정
     var mapOptions = {
-    	    center: new naver.maps.LatLng(37.5513811,126.8371709),
+    	    center: new naver.maps.LatLng(37.4989966363357, 127.032848249971),
     	    zoom: 16
     	   	   
     	};
@@ -178,7 +431,7 @@
     	var map = new naver.maps.Map('naver_map', mapOptions);
     
     	var marker = new naver.maps.Marker({
-    	    position: new naver.maps.LatLng(37.5513811,126.8371709),
+    	    position: new naver.maps.LatLng(37.4989966363357, 127.032848249971),
     	    title: '미즈메디병원',
     	    map:map
     	});

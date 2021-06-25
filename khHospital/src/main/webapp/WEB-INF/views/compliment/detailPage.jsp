@@ -16,6 +16,10 @@
             margin-bottom:100px;
             min-width: 600px;
         }
+        
+        #content h1{
+            color: #00a5db;
+        }
 		
 		/* board */
         .boardArea{
@@ -235,7 +239,7 @@
             	
                 <tr id="replyInsert">
                     <td colspan="5">
-                        <textarea class="replyContent" name="rcontent" id="rcontent" required
+                        <textarea class="replyContent" name="rcontent" id="rcontent" maxlength="2000" required
                         <c:if test="${ !empty loginUser }">placeholder="댓글을 입력해주세요"</c:if>
                         <c:if test="${ empty loginUser }">placeholder="로그인 유저만 작성이 가능합니다." disabled</c:if>></textarea>
                         <button type="button" onclick="insertReply();">등록</button>
@@ -280,7 +284,7 @@
                 
 				<tr class="reReplyInsert">
                     <td colspan="4">
-                        <i class="bi bi-arrow-return-right"></i>&nbsp;<textarea class="replyContent" name="rcontent"></textarea>
+                        <i class="bi bi-arrow-return-right"></i>&nbsp;<textarea class="replyContent" maxlength="2000" name="rcontent"></textarea>
                     </td>
                     <td colspan="1" class="replyBtn">
                         <button type="button" onclick="submitReReply(this, ${ r.rno });" ><i class="bi bi-pencil"></i></button>
@@ -389,7 +393,7 @@
     			
     			html +="</tr>";
     			html += "<tr class='updateArea'>";
-    			html += "<td colspan='4'><textarea class='replyContent' name='rcontent'></textarea></td>";
+    			html += "<td colspan='4'><textarea class='replyContent' maxlength='2000' name='rcontent'></textarea></td>";
     			html += "<td colspan='1' class='replyBtn'>";
     			html += "<button type='button' onclick='submitUpdate(this," + rlist[i].rno + ");'><i class='bi bi-pencil'></i></button>";
     			html += "<button type='button' onclick='cancelUpdate(this," + rlist[i].rno + ");'><i class='bi bi-x'></i></button>";
